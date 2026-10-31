@@ -1,10 +1,10 @@
-# WCNP: context
+# CD Orchestration tools (AKS, GKE, EKS): context
 
-WCNP is the internal container platform that deploys and runs applications on Kubernetes clusters, driven by Concord flows and the repository's KITT configuration. Platform internals and APIs are `TODO(owner)`.
+CD Orchestration tools (AKS, GKE, EKS) covers the managed Kubernetes platforms that deploy and run applications: Azure Kubernetes Service (AKS), Google Kubernetes Engine (GKE) and Amazon Elastic Kubernetes Service (EKS). Deployments are driven by Concord flows and the repository's KITT configuration. Which platforms each application uses, and their APIs and access, are `TODO(owner)`.
 
 ## Role in the lifecycle
 
-Stage 6 (`deploy`) and stage 7 (`run-operate`). WCNP triage owns **target resolution**: derive environment, cluster and namespace before any cluster-specific check.
+Stage 6 (`deploy`) and stage 7 (`run-operate`). This module owns **target resolution**: derive environment, cluster and namespace before any cluster-specific check.
 
 ## Context to collect
 
@@ -15,11 +15,12 @@ Stage 6 (`deploy`) and stage 7 (`run-operate`). WCNP triage owns **target resolu
 
 ## Identifiers and target resolution
 
+- Platform: `aks`, `gke` or `eks` (record which one; `TODO(owner)` per application).
 - App `example-app`, environment `dev|stage|prod` (`TODO(owner)` naming), cluster `<cluster-name>`, namespace `<namespace>`.
 
 ## Connector and access
 
-- Connector: `TODO(owner)` (WCNP API, or Kubernetes read-only access plus Concord and GitHub reads).
+- Connector: `TODO(owner)` (AKS, GKE or EKS read-only access, or Kubernetes read-only access plus Concord and GitHub reads).
 
 ## Relationships to other tools
 

@@ -11,8 +11,8 @@ TRIAGE-X reasons **by lifecycle stage first, tool second**.
 | 3 | `quality-security` | Quality & security | SonarQube, Gates | Quality gate conditions, scan failures, policy violations |
 | 4 | `package-publish` | Package & publish | Artifactory, Docker (registry) | Artifact or image publish/pull, version, permission, storage errors |
 | 5 | `orchestrate-deliver` | Orchestrate & deliver | Concord | Pipeline flow, task failures, target resolution, approvals |
-| 6 | `deploy` | Deploy | Kubernetes, WCNP | Manifest/config errors, image pull, rollout, quota, admission policy |
-| 7 | `run-operate` | Run & operate | Kubernetes, WCNP | CrashLoop, OOM, probes, scheduling, node or platform health |
+| 6 | `deploy` | Deploy | Kubernetes, CD Orchestration tools (AKS, GKE, EKS) | Manifest/config errors, image pull, rollout, quota, admission policy |
+| 7 | `run-operate` | Run & operate | Kubernetes, CD Orchestration tools (AKS, GKE, EKS) | CrashLoop, OOM, probes, scheduling, node or platform health |
 
 Stage 5 (Concord) orchestrates other stages, so a Concord failure frequently has its first failing stage at 2, 3, 4 or 6.
 
@@ -47,7 +47,7 @@ The first tool reporting an error is often a downstream symptom. For every triag
 | Reported | Walk | First failing |
 |---|---|---|
 | Concord: task `build` failed | → Jenkins build #142 stage "Quality Gate" ERROR → SonarQube: coverage on new code 61% < 80% | `quality-security` (SonarQube), category `policy-gate` |
-| WCNP: deploy timed out | → pods `ImagePullBackOff` → registry: tag `1.4.2` not found → Jenkins publish stage skipped | `package-publish` or `ci-build`, depending on evidence |
+| CD Orchestration tools (AKS, GKE, EKS): deploy timed out | → pods `ImagePullBackOff` → registry: tag `1.4.2` not found → Jenkins publish stage skipped | `package-publish` or `ci-build`, depending on evidence |
 | GitHub: required check failing | → Jenkins build failed: `cannot find symbol` | `ci-build`, category `code-change` |
 
 ## 4. "What changed?" checks by stage

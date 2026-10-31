@@ -4,7 +4,7 @@ GitHub hosts application source, pull requests, required checks, workflow defini
 
 ## Role in the lifecycle
 
-Stage 1 (`source-change`). Also the main source of **what-changed** evidence for every later stage, and of KITT files used for WCNP target resolution.
+Stage 1 (`source-change`). Also the main source of **what-changed** evidence for every later stage, and of KITT files used for CD Orchestration tools (AKS, GKE, EKS) target resolution.
 
 ## Context to collect
 
@@ -30,7 +30,7 @@ Stage 1 (`source-change`). Also the main source of **what-changed** evidence for
 ## Relationships to other tools
 
 - Required check failing → usually route to Jenkins (`ci-build`) or SonarQube (`quality-security`).
-- KITT file → WCNP and Kubernetes target resolution.
+- KITT file → CD Orchestration tools (AKS, GKE, EKS) and Kubernetes target resolution.
 - Commit history → what-changed for every stage.
 
 ## Pilot status

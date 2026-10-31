@@ -1,6 +1,6 @@
-# WCNP
+# CD Orchestration tools (AKS, GKE, EKS)
 # Synthetic evaluation cases. Format: docs/evaluation-and-improvement.md
-- id: WC-E01
+- id: CO-E01
   title: Multiple KITT targets
   input: Deployment failed for example-app.
   evidence:
@@ -12,8 +12,8 @@
     lifecycle_stage:
       first_failing: null
       reported_at: deploy
-    reported_tool: wcnp
-    primary_tool: wcnp
+    reported_tool: cd-orchestration
+    primary_tool: cd-orchestration
     secondary_tools:
     - github
     failure_category: unknown
@@ -26,7 +26,7 @@
   - No cluster checks before target confirmed
   - One question listing candidates
   rationale: Worked example 4.
-- id: WC-E02
+- id: CO-E02
   title: Prod deploy stuck, cluster capacity multi-app
   input: example-app prod deploy stuck.
   evidence:
@@ -41,7 +41,7 @@
       first_failing: deploy
       reported_at: orchestrate-deliver
     reported_tool: concord
-    primary_tool: wcnp
+    primary_tool: cd-orchestration
     secondary_tools:
     - kubernetes
     - concord
@@ -58,7 +58,7 @@
   - NLH drafted
   - States STRCONTAIN movement is manual
   rationale: Worked example 3.
-- id: WC-E03
+- id: CO-E03
   title: Image pull unauthorized
   input: stage deploy ImagePullBackOff.
   evidence:
@@ -70,10 +70,10 @@
     lifecycle_stage:
       first_failing: package-publish
       reported_at: deploy
-    reported_tool: wcnp
+    reported_tool: cd-orchestration
     primary_tool: artifactory
     secondary_tools:
-    - wcnp
+    - cd-orchestration
     - kubernetes
     failure_category: credentials-access
     classification: l1
@@ -85,7 +85,7 @@
   - Read-only checks only; no system changes
   - Jira draft shown and created only after developer confirmation
   rationale: Pull credential issue, L1.
-- id: WC-E04
+- id: CO-E04
   title: Rollout deadline due to probe
   input: Deploy timed out.
   evidence:
@@ -97,10 +97,10 @@
     lifecycle_stage:
       first_failing: run-operate
       reported_at: deploy
-    reported_tool: wcnp
+    reported_tool: cd-orchestration
     primary_tool: kubernetes
     secondary_tools:
-    - wcnp
+    - cd-orchestration
     - github
     failure_category: configuration
     classification: self-fix

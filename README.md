@@ -46,8 +46,8 @@ Today application teams raise delivery issues to L1 support engineers, who then 
 | 3 | Quality & security (`quality-security`) | SonarQube, Gates | Quality gate conditions, scan failures, policy violations |
 | 4 | Package & publish (`package-publish`) | Artifactory, Docker (registry) | Publish or pull, version, permission, storage errors |
 | 5 | Orchestrate & deliver (`orchestrate-deliver`) | Concord | Pipeline flow, task failures, target resolution, approvals |
-| 6 | Deploy (`deploy`) | Kubernetes, WCNP | Manifest or config errors, image pull, rollout, quota, admission policy |
-| 7 | Run & operate (`run-operate`) | Kubernetes, WCNP | CrashLoop, OOM, probes, scheduling, node or platform health |
+| 6 | Deploy (`deploy`) | Kubernetes, CD Orchestration tools (AKS, GKE, EKS) | Manifest or config errors, image pull, rollout, quota, admission policy |
+| 7 | Run & operate (`run-operate`) | Kubernetes, CD Orchestration tools (AKS, GKE, EKS) | CrashLoop, OOM, probes, scheduling, node or platform health |
 
 Failure categories: `code-change` · `configuration` · `dependency` · `credentials-access` · `policy-gate` · `capacity-quota` · `platform-infra` · `transient-flaky` · `unknown`.
 
@@ -62,8 +62,8 @@ Failure categories: `code-change` · `configuration` · `dependency` · `credent
 | SonarQube | 3 | `tools/sonarqube/` | **Primary** |
 | Artifactory | 4 | `tools/artifactory/` | Post-pilot |
 | Docker | 2, 4 | `tools/docker/` | Post-pilot |
-| Kubernetes | 6, 7 | `tools/kubernetes/` | Post-pilot (WCNP covers pilot runtime cases) |
-| WCNP | 6, 7 | `tools/wcnp/` | **Primary** |
+| Kubernetes | 6, 7 | `tools/kubernetes/` | Post-pilot (the CD Orchestration tools (AKS, GKE, EKS) module covers pilot runtime cases) |
+| CD Orchestration tools (AKS, GKE, EKS) | 6, 7 | `tools/cd-orchestration/` | **Primary** |
 
 These modules describe **what to investigate**. They do not claim that any particular internal API or connector exists; connector details are `TODO(owner)` in each `context.md`.
 
@@ -166,7 +166,7 @@ docs/                    Architecture, adding a tool, evaluation, USA integratio
 
 | Phase | Scope | Writes |
 |---|---|---|
-| `v0.1.0-pilot` shadow | Jenkins, SonarQube, WCNP primary; Concord and GitHub (KITT) supporting | None; drafts only |
+| `v0.1.0-pilot` shadow | Jenkins, SonarQube, CD Orchestration tools (AKS, GKE, EKS) primary; Concord and GitHub (KITT) supporting | None; drafts only |
 | `v0.1.0-pilot` writes on | Same | Jira and Slack after integrations are configured and verified |
 | `v1.0.0` | All tools | After pilot findings, integration checks and evaluation results are reviewed |
 

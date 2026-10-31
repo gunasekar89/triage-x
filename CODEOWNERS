@@ -27,7 +27,7 @@
 # /tools/artifactory/       TODO(owner): artifact repository owners
 # /tools/docker/            TODO(owner): container build owners
 # /tools/kubernetes/        TODO(owner): Kubernetes platform team
-# /tools/wcnp/              TODO(owner): WCNP platform team
+# /tools/cd-orchestration/              TODO(owner): CD Orchestration tools (AKS, GKE, EKS) platform team
 #
 # Evaluation cases:
 # /tests/                   TODO(owner): TRIAGE-X maintainers team

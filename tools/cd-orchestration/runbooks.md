@@ -1,19 +1,19 @@
-# WCNP: runbooks
+# CD Orchestration tools (AKS, GKE, EKS): runbooks
 
-Failure patterns for WCNP. Signatures and commands are **illustrative** and must be checked against real tool output. Every fix is a **manual action** performed by the developer under the normal change and approval process; TRIAGE-X never performs it.
+Failure patterns for CD Orchestration tools (AKS, GKE, EKS). Signatures and commands are **illustrative** and must be checked against real tool output. Every fix is a **manual action** performed by the developer under the normal change and approval process; TRIAGE-X never performs it.
 
 ## Pattern index
 
 | ID | Pattern | Stage | Category | Expected classification |
 |---|---|---|---|---|
-| WC-01 | Multiple candidate targets in KITT | `deploy` | `unknown` | Status `needs-input`, classification null; ask one question listing the candidates |
-| WC-02 | Concord target conflicts with KITT | `deploy` | `configuration` | Status `needs-input`; becomes Self-fix (`configuration`) once the developer confirms |
-| WC-03 | Deploy stuck: pods Pending for capacity (multi-app) | `deploy` | `capacity-quota` | Prod team needed; NLH, Jira and Slack after confirmation |
-| WC-04 | Rollout progress deadline exceeded | `deploy` | `configuration` | Classify from the underlying pod evidence; usually Self-fix |
-| WC-05 | Image pull failure on deploy | `deploy` | `configuration` | Self-fix (wrong tag) or L1 (access); reported_tool wcnp, primary_tool artifactory |
-| WC-06 | Platform-wide incident on cluster | `run-operate` | `platform-infra` | Prod team needed (link to existing incident instead if one is found) |
+| CO-01 | Multiple candidate targets in KITT | `deploy` | `unknown` | Status `needs-input`, classification null; ask one question listing the candidates |
+| CO-02 | Concord target conflicts with KITT | `deploy` | `configuration` | Status `needs-input`; becomes Self-fix (`configuration`) once the developer confirms |
+| CO-03 | Deploy stuck: pods Pending for capacity (multi-app) | `deploy` | `capacity-quota` | Prod team needed; NLH, Jira and Slack after confirmation |
+| CO-04 | Rollout progress deadline exceeded | `deploy` | `configuration` | Classify from the underlying pod evidence; usually Self-fix |
+| CO-05 | Image pull failure on deploy | `deploy` | `configuration` | Self-fix (wrong tag) or L1 (access); reported_tool cd-orchestration, primary_tool artifactory |
+| CO-06 | Platform-wide incident on cluster | `run-operate` | `platform-infra` | Prod team needed (link to existing incident instead if one is found) |
 
-## Pattern WC-01: Multiple candidate targets in KITT
+## Pattern CO-01: Multiple candidate targets in KITT
 
 - **Lifecycle stage:** `deploy`
 - **Failure category:** `unknown`
@@ -32,7 +32,7 @@ Failure patterns for WCNP. Signatures and commands are **illustrative** and must
 - **Prod-team conditions:** n/a.
 - **Expected classification:** Status `needs-input`, classification null; ask one question listing the candidates.
 
-## Pattern WC-02: Concord target conflicts with KITT
+## Pattern CO-02: Concord target conflicts with KITT
 
 - **Lifecycle stage:** `deploy`
 - **Failure category:** `configuration`
@@ -49,7 +49,7 @@ Failure patterns for WCNP. Signatures and commands are **illustrative** and must
 - **Prod-team conditions:** None.
 - **Expected classification:** Status `needs-input`; becomes Self-fix (`configuration`) once the developer confirms.
 
-## Pattern WC-03: Deploy stuck: pods Pending for capacity (multi-app)
+## Pattern CO-03: Deploy stuck: pods Pending for capacity (multi-app)
 
 - **Lifecycle stage:** `deploy`
 - **Failure category:** `capacity-quota`
@@ -69,7 +69,7 @@ Failure patterns for WCNP. Signatures and commands are **illustrative** and must
 - **Prod-team conditions:** Multi-app scheduling failure on the same cluster.
 - **Expected classification:** Prod team needed; NLH, Jira and Slack after confirmation.
 
-## Pattern WC-04: Rollout progress deadline exceeded
+## Pattern CO-04: Rollout progress deadline exceeded
 
 - **Lifecycle stage:** `deploy`
 - **Failure category:** `configuration`
@@ -87,11 +87,11 @@ Failure patterns for WCNP. Signatures and commands are **illustrative** and must
 - **Prod-team conditions:** Same timeout across many apps on the cluster.
 - **Expected classification:** Classify from the underlying pod evidence; usually Self-fix.
 
-## Pattern WC-05: Image pull failure on deploy
+## Pattern CO-05: Image pull failure on deploy
 
 - **Lifecycle stage:** `deploy`
 - **Failure category:** `configuration`
-- **Symptoms:** WCNP deploy fails; pods `ImagePullBackOff`.
+- **Symptoms:** CD Orchestration tools (AKS, GKE, EKS) deploy fails; pods `ImagePullBackOff`.
 - **Log or event signatures (illustrative):** `Failed to pull image ... not found` or `unauthorized`.
 - **Evidence to collect:**
   - Event.
@@ -104,9 +104,9 @@ Failure patterns for WCNP. Signatures and commands are **illustrative** and must
 - **Developer-performed fix:** Correct the tag in KITT.
 - **L1 escalation conditions:** Pull permission or pull secret problem.
 - **Prod-team conditions:** Registry unreachable from cluster for many apps.
-- **Expected classification:** Self-fix (wrong tag) or L1 (access); reported_tool wcnp, primary_tool artifactory.
+- **Expected classification:** Self-fix (wrong tag) or L1 (access); reported_tool cd-orchestration, primary_tool artifactory.
 
-## Pattern WC-06: Platform-wide incident on cluster
+## Pattern CO-06: Platform-wide incident on cluster
 
 - **Lifecycle stage:** `run-operate`
 - **Failure category:** `platform-infra`

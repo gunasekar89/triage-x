@@ -36,8 +36,8 @@ triage_result:
   lifecycle_stage:
     first_failing: null
     reported_at: deploy
-  reported_tool: wcnp
-  primary_tool: wcnp
+  reported_tool: cd-orchestration
+  primary_tool: cd-orchestration
   secondary_tools:
   - github
   failure_category: unknown

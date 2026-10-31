@@ -41,23 +41,23 @@ These hints are **illustrative**. Real messages vary by tool version and configu
 | `Could not find artifact`, `404 Not Found` on artifact path | package-publish | artifactory |
 | `manifest unknown`, `denied: requested access to the resource is denied` | package-publish | docker, artifactory |
 | "Concord", `Process finished with status FAILED`, task error | orchestrate-deliver | concord (then walk upstream) |
-| `ImagePullBackOff`, `ErrImagePull` | deploy (cause often package-publish) | wcnp, kubernetes, artifactory |
-| `FailedScheduling`, `Insufficient cpu`, `Insufficient memory` | deploy | wcnp, kubernetes |
-| `exceeded quota`, `admission webhook .* denied` | deploy | kubernetes, wcnp |
-| `ProgressDeadlineExceeded`, rollout stuck | deploy | wcnp, kubernetes |
-| `CrashLoopBackOff`, `OOMKilled`, `Liveness probe failed` | run-operate | kubernetes, wcnp |
-| `NodeNotReady`, many namespaces affected | run-operate | kubernetes, wcnp (prod-team signal) |
+| `ImagePullBackOff`, `ErrImagePull` | deploy (cause often package-publish) | cd-orchestration, kubernetes, artifactory |
+| `FailedScheduling`, `Insufficient cpu`, `Insufficient memory` | deploy | cd-orchestration, kubernetes |
+| `exceeded quota`, `admission webhook .* denied` | deploy | kubernetes, cd-orchestration |
+| `ProgressDeadlineExceeded`, rollout stuck | deploy | cd-orchestration, kubernetes |
+| `CrashLoopBackOff`, `OOMKilled`, `Liveness probe failed` | run-operate | kubernetes, cd-orchestration |
+| `NodeNotReady`, many namespaces affected | run-operate | kubernetes, cd-orchestration (prod-team signal) |
 
 ## 4. Multi-tool cases
 
 | Reported in | Often first fails in | How to tell |
 |---|---|---|
-| Concord task failure | Jenkins build, SonarQube gate, Artifactory publish, WCNP deploy | Follow the failed task's referenced job or step |
+| Concord task failure | Jenkins build, SonarQube gate, Artifactory publish, CD Orchestration tools (AKS, GKE, EKS) deploy | Follow the failed task's referenced job or step |
 | Jenkins stage "Quality Gate" | SonarQube | Gate status and failing conditions from SonarQube |
 | Jenkins publish stage | Artifactory or Docker registry | HTTP status and repository path in console |
 | GitHub required check | Jenkins or SonarQube | The check's target URL / name maps to a build or analysis |
 | Kubernetes `ImagePullBackOff` | Artifactory / Docker registry, or a tag typo in KITT | Does the tag exist? Is the pull authorized? Did the tag change? |
-| WCNP deploy timeout | Kubernetes runtime (probes, OOM, scheduling) | Pod events and container status |
+| CD Orchestration tools (AKS, GKE, EKS) deploy timeout | Kubernetes runtime (probes, OOM, scheduling) | Pod events and container status |
 
 Record both the reporting tool (`reported_tool`) and the most likely failing tool (`primary_tool`); add the others to `secondary_tools`.
 
@@ -72,4 +72,4 @@ If the request concerns a tool or system not in `tools/` (for example a database
 
 ## 6. Pilot scope
 
-During `v0.1.0-pilot`, Jenkins, SonarQube and WCNP are primary. If routing selects another primary tool, say "outside the pilot scope", still apply the module's guidance, and keep confidence honest.
+During `v0.1.0-pilot`, Jenkins, SonarQube and CD Orchestration tools (AKS, GKE, EKS) are primary. If routing selects another primary tool, say "outside the pilot scope", still apply the module's guidance, and keep confidence honest.

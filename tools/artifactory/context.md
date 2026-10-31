@@ -4,7 +4,7 @@ Artifactory stores build artifacts, dependencies and container images.
 
 ## Role in the lifecycle
 
-Stage 4 (`package-publish`). Failures are often **reported** in Jenkins (stage 2) or Kubernetes/WCNP (stage 6, image pull).
+Stage 4 (`package-publish`). Failures are often **reported** in Jenkins (stage 2) or Kubernetes/CD Orchestration tools (AKS, GKE, EKS) (stage 6, image pull).
 
 ## Context to collect
 

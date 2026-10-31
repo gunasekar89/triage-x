@@ -1,4 +1,4 @@
-# Example 4 — Needs input (multiple WCNP targets)
+# Example 4 — Needs input (multiple CD Orchestration tools (AKS, GKE, EKS) targets)
 
 > Synthetic.
 

@@ -4,7 +4,7 @@ Concord orchestrates delivery flows: it calls builds, gates, publishing and depl
 
 ## Role in the lifecycle
 
-Stage 5 (`orchestrate-deliver`). Concord is very often the **reporting** tool for failures whose first failing stage is earlier (2, 3, 4) or later (6). Its logs are also a key source for WCNP target resolution.
+Stage 5 (`orchestrate-deliver`). Concord is very often the **reporting** tool for failures whose first failing stage is earlier (2, 3, 4) or later (6). Its logs are also a key source for CD Orchestration tools (AKS, GKE, EKS) target resolution.
 
 ## Context to collect
 
@@ -17,7 +17,7 @@ Stage 5 (`orchestrate-deliver`). Concord is very often the **reporting** tool fo
 ## Identifiers and target resolution
 
 - Process ID `<process-id>`; Concord instance URL is `<internal-url>`.
-- Target values from the log are evidence for WCNP target resolution; compare them with the KITT file.
+- Target values from the log are evidence for CD Orchestration tools (AKS, GKE, EKS) target resolution; compare them with the KITT file.
 
 ## Connector and access
 
@@ -28,7 +28,7 @@ Stage 5 (`orchestrate-deliver`). Concord is very often the **reporting** tool fo
 
 - Task wraps Jenkins → walk to Jenkins.
 - Task waits on Gates → Gates module.
-- Deploy task → WCNP / Kubernetes.
+- Deploy task → CD Orchestration tools (AKS, GKE, EKS) / Kubernetes.
 - Concord target vs KITT target disagreement → `needs-input` (cross-cutting rule).
 
 ## Pilot status

@@ -1,6 +1,6 @@
 ---
 name: triage-x
-description: Evidence-driven, lifecycle-aware self-service triage for delivery failures across GitHub, Jenkins, SonarQube, Gates, Artifactory, Docker, Concord, Kubernetes and WCNP. Use when a developer shares a failing build, pipeline, PR, deployment or error message and wants to know what failed, why, and who should fix it.
+description: Evidence-driven, lifecycle-aware self-service triage for delivery failures across GitHub, Jenkins, SonarQube, Gates, Artifactory, Docker, Concord, Kubernetes and CD Orchestration tools (AKS, GKE, EKS). Use when a developer shares a failing build, pipeline, PR, deployment or error message and wants to know what failed, why, and who should fix it.
 version: 0.1.0-pilot
 ---
 
@@ -93,4 +93,4 @@ Keep **Actions taken (confirmed)** strictly separate from **Proposed manual acti
 
 ## 9. Pilot scope
 
-`v0.1.0-pilot`: primary triage for **Jenkins, SonarQube and WCNP**, with read-only supporting context from Concord and GitHub (KITT files). If the primary tool is outside the pilot, say so and still give the best evidence-based guidance with status and confidence set honestly. Shadow mode is the default: produce results and drafts, perform no Jira or Slack writes, until the owner enables writes (`TODO(owner)`).
+`v0.1.0-pilot`: primary triage for **Jenkins, SonarQube and CD Orchestration tools (AKS, GKE, EKS)**, with read-only supporting context from Concord and GitHub (KITT files). If the primary tool is outside the pilot, say so and still give the best evidence-based guidance with status and confidence set honestly. Shadow mode is the default: produce results and drafts, perform no Jira or Slack writes, until the owner enables writes (`TODO(owner)`).

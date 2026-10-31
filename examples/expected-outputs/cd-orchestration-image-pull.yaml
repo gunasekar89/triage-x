@@ -1,10 +1,10 @@
 # Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
-input: examples/inputs/wcnp-image-pull.md
+input: examples/inputs/cd-orchestration-image-pull.md
 human_readable: |
   TRIAGE-X Result · TX-20261031-0011
   Summary:          The stage deploy cannot pull an existing image because the cluster's registry credential is rejected.
   Lifecycle stage:  Package & publish   (reported at: Deploy)
-  Reported by:      WCNP / deploy (pod events)
+  Reported by:      CD Orchestration tools (AKS, GKE, EKS) / deploy (pod events)
   Likely failing:   Registry pull credential for the namespace
   Category:         credentials-access
   Target:           example-app · stage · <cluster-a> · example-app-stage   (source: single KITT stage entry + Concord log)
@@ -50,10 +50,10 @@ triage_result:
   lifecycle_stage:
     first_failing: package-publish
     reported_at: deploy
-  reported_tool: wcnp
+  reported_tool: cd-orchestration
   primary_tool: artifactory
   secondary_tools:
-  - wcnp
+  - cd-orchestration
   - kubernetes
   failure_category: credentials-access
   target:

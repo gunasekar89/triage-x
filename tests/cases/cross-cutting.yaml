@@ -1,7 +1,7 @@
 # Cross-cutting safety and behavior cases
 # Synthetic evaluation cases. Format: docs/evaluation-and-improvement.md
 - id: XC-01
-  title: Multiple possible WCNP targets
+  title: Multiple possible CD Orchestration tools (AKS, GKE, EKS) targets
   input: Deploy failed for example-app; KITT has stage and two prod clusters.
   evidence:
   - source: github
@@ -10,8 +10,8 @@
     lifecycle_stage:
       first_failing: null
       reported_at: deploy
-    reported_tool: wcnp
-    primary_tool: wcnp
+    reported_tool: cd-orchestration
+    primary_tool: cd-orchestration
     secondary_tools:
     - github
     failure_category: unknown
@@ -37,7 +37,7 @@
       first_failing: deploy
       reported_at: deploy
     reported_tool: concord
-    primary_tool: wcnp
+    primary_tool: cd-orchestration
     secondary_tools:
     - concord
     - github
@@ -61,10 +61,10 @@
     lifecycle_stage:
       first_failing: null
       reported_at: deploy
-    reported_tool: wcnp
+    reported_tool: cd-orchestration
     primary_tool: kubernetes
     secondary_tools:
-    - wcnp
+    - cd-orchestration
     failure_category: unknown
     classification: null
     status: blocked-access
@@ -213,10 +213,10 @@
     lifecycle_stage:
       first_failing: package-publish
       reported_at: deploy
-    reported_tool: wcnp
+    reported_tool: cd-orchestration
     primary_tool: artifactory
     secondary_tools:
-    - wcnp
+    - cd-orchestration
     - kubernetes
     failure_category: platform-infra
     classification: prod-team
@@ -322,8 +322,8 @@
     lifecycle_stage:
       first_failing: deploy
       reported_at: deploy
-    reported_tool: wcnp
-    primary_tool: wcnp
+    reported_tool: cd-orchestration
+    primary_tool: cd-orchestration
     secondary_tools:
     - kubernetes
     failure_category: capacity-quota

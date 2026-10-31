@@ -11,7 +11,7 @@ flowchart TB
 
   subgraph TM[Tool modules · tools/&lt;tool&gt;/]
     GH[GitHub] --- JK[Jenkins] --- SQ[SonarQube] --- GT[Gates]
-    AF[Artifactory] --- DK[Docker] --- CC[Concord] --- KB[Kubernetes] --- WC[WCNP]
+    AF[Artifactory] --- DK[Docker] --- CC[Concord] --- KB[Kubernetes] --- WC["CD Orchestration tools (AKS, GKE, EKS)"]
   end
 
   TM -->|read-only checks| EV[Evidence handling<br/>facts · hypotheses · what changed · blast radius<br/>core/evidence-and-confidence.md]

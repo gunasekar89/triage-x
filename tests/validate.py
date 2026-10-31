@@ -31,7 +31,7 @@ except ImportError as exc:  # pragma: no cover
 
 ROOT = Path(__file__).resolve().parent.parent
 
-TOOLS = ["github", "jenkins", "concord", "gates", "sonarqube", "artifactory", "docker", "kubernetes", "wcnp"]
+TOOLS = ["github", "jenkins", "concord", "gates", "sonarqube", "artifactory", "docker", "kubernetes", "cd-orchestration"]
 STAGES = {"source-change", "ci-build", "quality-security", "package-publish", "orchestrate-deliver", "deploy", "run-operate"}
 CATEGORIES = {"code-change", "configuration", "dependency", "credentials-access", "policy-gate",
               "capacity-quota", "platform-infra", "transient-flaky", "unknown"}
@@ -63,7 +63,7 @@ EXPECTED_KEYS = ["lifecycle_stage", "reported_tool", "primary_tool", "secondary_
                  "classification", "status", "question_expected", "jira_expected", "slack_expected"]
 # Cross-cutting topics required by the build spec, matched against case titles (case-insensitive).
 CROSS_CUTTING_TOPICS = {
-    "multiple WCNP targets": r"multiple possible wcnp targets",
+    "multiple CD Orchestration tools (AKS, GKE, EKS) targets": r"multiple possible cd orchestration tools \(aks, gke, eks\) targets",
     "conflicting Concord/config evidence": r"conflicting concord",
     "missing access": r"missing access",
     "incomplete logs": r"incomplete logs",

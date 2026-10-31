@@ -17,7 +17,7 @@ Stage 6 (`deploy`) and stage 7 (`run-operate`). Cluster-specific checks require 
 ## Identifiers and target resolution
 
 - Cluster `<cluster-name>`, namespace `<namespace>`, workload `example-app`.
-- Target must be confirmed via WCNP target resolution before any check.
+- Target must be confirmed via CD Orchestration tools (AKS, GKE, EKS) target resolution before any check.
 
 ## Connector and access
 
@@ -26,9 +26,9 @@ Stage 6 (`deploy`) and stage 7 (`run-operate`). Cluster-specific checks require 
 
 ## Relationships to other tools
 
-- Often invoked from WCNP; WCNP supplies the confirmed target.
+- Often invoked from the CD Orchestration tools (AKS, GKE, EKS) module, which supplies the confirmed target.
 - Image pull failures → Artifactory / Docker.
 
 ## Pilot status
 
-Post-pilot as a primary module; during the pilot Kubernetes checks run as part of WCNP triage.
+Post-pilot as a primary module; during the pilot Kubernetes checks run as part of CD Orchestration tools (AKS, GKE, EKS) triage (module `tools/cd-orchestration/`).

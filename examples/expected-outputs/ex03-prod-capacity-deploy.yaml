@@ -5,7 +5,7 @@ human_readable: |
   Summary:          The example-app prod deploy is stuck because the cluster has no CPU capacity, and 7 other namespaces show the same scheduling failure.
   Lifecycle stage:  Deploy   (reported at: Orchestrate & deliver)
   Reported by:      Concord / deploy task
-  Likely failing:   WCNP cluster capacity (Kubernetes scheduling)
+  Likely failing:   CD Orchestration tools (AKS, GKE, EKS) cluster capacity (Kubernetes scheduling)
   Category:         capacity-quota
   Target:           example-app · prod · <cluster-name> · example-app-prod   (source: single KITT prod entry + Concord log)
   Blast radius:     multiple apps
@@ -39,7 +39,7 @@ human_readable: |
   Slack (posted to #triage-x-alerts after confirmation):
     :rotating_light: TRIAGE-X · Prod validation requested
     App/Env:      example-app · prod
-    Stage/Tool:   Deploy · wcnp
+    Stage/Tool:   Deploy · cd-orchestration
     Impact:       unknown
     Blast radius: multi-app
     Ask:          Validate CPU capacity on <cluster-name> and advise on scheduling
@@ -65,7 +65,7 @@ triage_result:
     first_failing: deploy
     reported_at: orchestrate-deliver
   reported_tool: concord
-  primary_tool: wcnp
+  primary_tool: cd-orchestration
   secondary_tools:
   - kubernetes
   - concord

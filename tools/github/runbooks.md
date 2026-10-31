@@ -115,7 +115,7 @@ Failure patterns for GitHub. Signatures and commands are **illustrative** and mu
 - **Lifecycle stage:** `source-change`
 - **Failure category:** `configuration`
 - **Symptoms:** Deploy fails right after a PR that edited the KITT file.
-- **Log or event signatures (illustrative):** Deploy error naming a KITT key; schema or validation error in Concord or WCNP.
+- **Log or event signatures (illustrative):** Deploy error naming a KITT key; schema or validation error in Concord or CD Orchestration tools (AKS, GKE, EKS).
 - **Evidence to collect:**
   - Diff of the KITT file in the last merge.
   - Deploy error referencing the changed key.

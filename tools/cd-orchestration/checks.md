@@ -1,4 +1,4 @@
-# WCNP: checks
+# CD Orchestration tools (AKS, GKE, EKS): checks
 
 All checks are **read-only**. Commands and API paths are **illustrative**; the real connector and its operations are `TODO(owner)`. Never run a check against an unconfirmed target.
 
