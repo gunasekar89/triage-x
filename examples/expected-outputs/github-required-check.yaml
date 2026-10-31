@@ -30,6 +30,17 @@ human_readable: |
   Escalate if:      The build passes locally but still fails in CI with the same error.
   Open questions:   none
   Unknowns:         none
+
+  Self-RCA · TX-20261031-0005 · draft
+  Problem:              PR #57 blocked by a failing required build check.
+  Impact:               PR cannot merge
+  Trigger:              toDto() renamed to toResponse() in Order.java
+  Root cause:           OrderMapper still calls the removed method toDto(), so compilation fails   [basis: fact]
+  Contributing factors: none identified
+  Why not caught earlier: The project was not compiled locally after the rename
+  Resolution:           Update OrderMapper to call toResponse() (proposed, not performed)
+  Prevention (manual, for the team to decide):
+    1. Use IDE rename refactoring and build locally before pushing — suggested owner: developer
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0005
@@ -82,3 +93,15 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: 'PR #57 blocked by a failing required build check.'
+    impact: PR cannot merge
+    trigger: toDto() renamed to toResponse() in Order.java
+    root_cause: OrderMapper still calls the removed method toDto(), so compilation fails
+    root_cause_basis: fact
+    contributing_factors: []
+    why_not_caught_earlier: The project was not compiled locally after the rename
+    resolution: Update OrderMapper to call toResponse() (proposed, not performed)
+    prevention:
+    - 'Use IDE rename refactoring and build locally before pushing — suggested owner: developer'

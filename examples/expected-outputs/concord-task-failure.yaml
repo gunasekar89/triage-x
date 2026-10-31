@@ -29,6 +29,17 @@ human_readable: |
   Escalate if:      The error persists after the rename is fixed.
   Open questions:   none
   Unknowns:         Environment of the failed process not printed before failure.
+
+  Self-RCA · TX-20261031-0007 · draft
+  Problem:              Concord process for example-app failed at start.
+  Impact:               Delivery flow blocked
+  Trigger:              deployEnv renamed to targetEnv in arguments only
+  Root cause:           The deploy step still references deployEnv, which no longer exists   [basis: fact]
+  Contributing factors: none identified
+  Why not caught earlier: The flow change was merged without a test run of the flow
+  Resolution:           Rename the remaining reference (proposed, not performed)
+  Prevention (manual, for the team to decide):
+    1. Search the flow file for all references when renaming variables — suggested owner: developer
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0007
@@ -78,3 +89,15 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: Concord process for example-app failed at start.
+    impact: Delivery flow blocked
+    trigger: deployEnv renamed to targetEnv in arguments only
+    root_cause: The deploy step still references deployEnv, which no longer exists
+    root_cause_basis: fact
+    contributing_factors: []
+    why_not_caught_earlier: The flow change was merged without a test run of the flow
+    resolution: Rename the remaining reference (proposed, not performed)
+    prevention:
+    - 'Search the flow file for all references when renaming variables — suggested owner: developer'

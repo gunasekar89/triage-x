@@ -31,6 +31,18 @@ human_readable: |
   Escalate if:      Coverage stays at 0% or unchanged after tests are added (possible coverage import issue, SQ-05).
   Open questions:   none
   Unknowns:         Environment inferred as dev from the CI context; not stated by the developer.
+
+  Self-RCA · TX-20261031-0001 · draft
+  Problem:              example-app build #142 blocked by the SonarQube quality gate (dev).
+  Impact:               Build blocked; no release impact
+  Trigger:              3 commits added OrderExportService without tests
+  Root cause:           New code has no tests, so coverage on new code is 61.2%, below the 80% gate threshold   [basis: fact]
+  Contributing factors: none identified
+  Why not caught earlier: Coverage on new code was not checked locally before pushing
+  Resolution:           Add tests for the new code and re-run CI (proposed, not performed)
+  Prevention (manual, for the team to decide):
+    1. Run tests with coverage locally before pushing — suggested owner: developer
+    2. Consider a pre-push coverage check — suggested owner: team
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0001
@@ -85,3 +97,16 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: 'example-app build #142 blocked by the SonarQube quality gate (dev).'
+    impact: Build blocked; no release impact
+    trigger: 3 commits added OrderExportService without tests
+    root_cause: New code has no tests, so coverage on new code is 61.2%, below the 80% gate threshold
+    root_cause_basis: fact
+    contributing_factors: []
+    why_not_caught_earlier: Coverage on new code was not checked locally before pushing
+    resolution: Add tests for the new code and re-run CI (proposed, not performed)
+    prevention:
+    - 'Run tests with coverage locally before pushing — suggested owner: developer'
+    - 'Consider a pre-push coverage check — suggested owner: team'

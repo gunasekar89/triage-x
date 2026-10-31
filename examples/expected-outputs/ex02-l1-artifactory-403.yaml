@@ -36,6 +36,17 @@ human_readable: |
     Title:  [TRIAGE-X][artifactory] 403 resolving com.example:example-lib:2.3.1 — example-app (dev)
     Labels: triage-x, triage-x-artifactory
     Slack:  not applicable (L1)
+
+  Self-RCA · TX-20261031-0002 · draft
+  Problem:              example-app build #77 cannot resolve com.example:example-lib:2.3.1 (403).
+  Impact:               CI blocked for example-app
+  Trigger:              2.3.1 is served from a different repository path than 2.3.0
+  Root cause:           Pipeline credential is denied read access to the repository serving 2.3.1   [basis: likely]
+  Contributing factors: Repository permissions are not visible to developers
+  Why not caught earlier: unknown; depends on how repository permissions are provisioned
+  Resolution:           L1 grants or corrects repository read access (ticket created)
+  Prevention (manual, for the team to decide):
+    1. Ask L1 whether new repository paths need an access request — suggested owner: TODO(owner)
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0002
@@ -100,3 +111,16 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: 'example-app build #77 cannot resolve com.example:example-lib:2.3.1 (403).'
+    impact: CI blocked for example-app
+    trigger: 2.3.1 is served from a different repository path than 2.3.0
+    root_cause: Pipeline credential is denied read access to the repository serving 2.3.1
+    root_cause_basis: likely
+    contributing_factors:
+    - Repository permissions are not visible to developers
+    why_not_caught_earlier: unknown; depends on how repository permissions are provisioned
+    resolution: L1 grants or corrects repository read access (ticket created)
+    prevention:
+    - 'Ask L1 whether new repository paths need an access request — suggested owner: TODO(owner)'

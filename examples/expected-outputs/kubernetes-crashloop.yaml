@@ -30,6 +30,17 @@ human_readable: |
   Escalate if:      Pods still crash with a different, platform-related error.
   Open questions:   none
   Unknowns:         none
+
+  Self-RCA · TX-20261031-0010 · draft
+  Problem:              example-app pods crash-loop in dev after today's deploy.
+  Impact:               example-app unavailable in dev
+  Trigger:              Env var ORDERS_DB_POOL_SIZE removed from KITT
+  Root cause:           The application requires ORDERS_DB_POOL_SIZE at startup and fails without it   [basis: fact]
+  Contributing factors: none identified
+  Why not caught earlier: No startup or config validation test covers required properties
+  Resolution:           Restore the variable or add a default (proposed, not performed)
+  Prevention (manual, for the team to decide):
+    1. Add a startup test that fails on missing required properties — suggested owner: developer
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0010
@@ -84,3 +95,15 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: example-app pods crash-loop in dev after today's deploy.
+    impact: example-app unavailable in dev
+    trigger: Env var ORDERS_DB_POOL_SIZE removed from KITT
+    root_cause: The application requires ORDERS_DB_POOL_SIZE at startup and fails without it
+    root_cause_basis: fact
+    contributing_factors: []
+    why_not_caught_earlier: No startup or config validation test covers required properties
+    resolution: Restore the variable or add a default (proposed, not performed)
+    prevention:
+    - 'Add a startup test that fails on missing required properties — suggested owner: developer'

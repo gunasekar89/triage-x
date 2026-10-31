@@ -30,6 +30,17 @@ human_readable: |
   Escalate if:      The chosen tag exists but pull is denied (L1, access).
   Open questions:   none
   Unknowns:         none
+
+  Self-RCA · TX-20261031-0009 · draft
+  Problem:              example-app image build fails at FROM.
+  Impact:               Image not produced
+  Trigger:              FROM changed to java-runtime:17.0.3
+  Root cause:           Tag 17.0.3 does not exist in the registry   [basis: fact]
+  Contributing factors: none identified
+  Why not caught earlier: The image was not built locally after the base image change
+  Resolution:           Use an existing approved tag such as 17.0.4 (proposed, not performed)
+  Prevention (manual, for the team to decide):
+    1. Check available base image tags before changing FROM — suggested owner: developer
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0009
@@ -83,3 +94,15 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: example-app image build fails at FROM.
+    impact: Image not produced
+    trigger: FROM changed to java-runtime:17.0.3
+    root_cause: Tag 17.0.3 does not exist in the registry
+    root_cause_basis: fact
+    contributing_factors: []
+    why_not_caught_earlier: The image was not built locally after the base image change
+    resolution: Use an existing approved tag such as 17.0.4 (proposed, not performed)
+    prevention:
+    - 'Check available base image tags before changing FROM — suggested owner: developer'

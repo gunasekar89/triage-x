@@ -31,6 +31,17 @@ human_readable: |
   Unknowns:         Whether other teams using the label are affected.
 
   Jira draft shown; awaiting developer confirmation (not created).
+
+  Self-RCA · TX-20261031-0006 · draft
+  Problem:              example-app build #210 queued for 40 minutes.
+  Impact:               CI delayed for example-app
+  Trigger:              no change evidence available
+  Root cause:           All 4 agents for label linux-docker-large went offline   [basis: likely]
+  Contributing factors: Impact on other teams not visible
+  Why not caught earlier: unknown
+  Resolution:           L1 restores agents (ticket draft provided)
+  Prevention (manual, for the team to decide):
+    1. Agent pool monitoring is for the CI platform team to review — suggested owner: TODO(owner)
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0006
@@ -82,3 +93,16 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: 'example-app build #210 queued for 40 minutes.'
+    impact: CI delayed for example-app
+    trigger: no change evidence available
+    root_cause: All 4 agents for label linux-docker-large went offline
+    root_cause_basis: likely
+    contributing_factors:
+    - Impact on other teams not visible
+    why_not_caught_earlier: unknown
+    resolution: L1 restores agents (ticket draft provided)
+    prevention:
+    - 'Agent pool monitoring is for the CI platform team to review — suggested owner: TODO(owner)'

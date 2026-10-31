@@ -80,3 +80,5 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: not-applicable

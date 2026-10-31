@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased] — v0.1.0-pilot
 
 ### Added
+- Self-service RCA: `core/self-rca.md`, optional `rca` object in `triage_result` (additive, schema stays 1.0), Self-RCA block in results and Jira tickets.
 - Initial scaffold: `SKILL.md`, core reasoning documents, output contract and `triage_result` schema v1.0.
 - Tool modules for GitHub, Jenkins, Concord, Gates, SonarQube, Artifactory, Docker, Kubernetes and WCNP, each with 5–8 failure patterns, plus a module template.
 - Jira MCP and Slack integration contracts (organization details as `TODO(owner)`).

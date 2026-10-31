@@ -32,6 +32,17 @@ human_readable: |
   Unknowns:         Whether other namespaces on <cluster-a> are affected.; Whether the Jira issue was created.
 
   Jira write result is unverified; TRIAGE-X did not retry. Manual draft provided.
+
+  Self-RCA · TX-20261031-0011 · draft
+  Problem:              example-app stage deploy fails with ImagePullBackOff (unauthorized).
+  Impact:               Stage deploy blocked
+  Trigger:              Pull-secret rotation announced yesterday (platform notice)
+  Root cause:           Suspected: the namespace pull secret was not updated after the rotation   [basis: hypothesis]
+  Contributing factors: Jira write result unverified
+  Why not caught earlier: unknown
+  Resolution:           L1 checks and fixes the pull credential
+  Prevention (manual, for the team to decide):
+    1. Confirm with L1 whether pull secrets update automatically after rotation — suggested owner: TODO(owner)
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0011
@@ -95,3 +106,16 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: example-app stage deploy fails with ImagePullBackOff (unauthorized).
+    impact: Stage deploy blocked
+    trigger: Pull-secret rotation announced yesterday (platform notice)
+    root_cause: 'Suspected: the namespace pull secret was not updated after the rotation'
+    root_cause_basis: hypothesis
+    contributing_factors:
+    - Jira write result unverified
+    why_not_caught_earlier: unknown
+    resolution: L1 checks and fixes the pull credential
+    prevention:
+    - 'Confirm with L1 whether pull secrets update automatically after rotation — suggested owner: TODO(owner)'

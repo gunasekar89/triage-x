@@ -41,7 +41,7 @@ STATUSES = {"complete", "needs-input", "blocked-access"}
 REQUIRED_FILES = [
     "README.md", "SKILL.md", "CODEOWNERS", "CHANGELOG.md", ".gitignore",
     "core/router.md", "core/lifecycle-stages.md", "core/classification.md", "core/output-contract.md",
-    "core/evidence-and-confidence.md", "core/security-and-privacy.md", "core/nlh-template.md",
+    "core/evidence-and-confidence.md", "core/security-and-privacy.md", "core/nlh-template.md", "core/self-rca.md",
     "schemas/triage-result.schema.json",
     "integrations/jira-mcp.md", "integrations/slack.md",
     "docs/architecture.md", "docs/adding-a-tool.md", "docs/evaluation-and-improvement.md", "docs/usa-integration.md",
@@ -78,6 +78,7 @@ CROSS_CUTTING_TOPICS = {
     "Slack failure": r"slack notification fails",
     "duplicate ticket": r"duplicate ticket",
     "STRCONTAIN attempt": r"strcontain",
+    "Self-RCA not overstated": r"self-rca not confirmed",
 }
 
 # Sensitive-content scan.
@@ -281,6 +282,11 @@ def check_expected_outputs() -> list[str]:
             path = "/".join(str(x) for x in e.absolute_path)
             errs.append(f"{rel(p)}: schema error at {path or '<root>'}: {e.message}")
         r = doc["triage_result"]
+        rca_status = (r.get("rca") or {}).get("status")
+        if r.get("status") == "complete" and rca_status not in ("draft", "confirmed-by-developer"):
+            errs.append(f"{rel(p)}: complete triage must include a Self-RCA (rca.status draft or confirmed-by-developer)")
+        if r.get("status") == "complete" and "Self-RCA · " not in str(doc.get("human_readable", "")):
+            errs.append(f"{rel(p)}: complete triage must include the Self-RCA block in human_readable")
         covered.update(t for t in [r.get("reported_tool"), r.get("primary_tool"), *r.get("secondary_tools", [])] if t)
     for t in TOOLS:
         if t not in covered:

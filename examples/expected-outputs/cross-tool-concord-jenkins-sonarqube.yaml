@@ -31,6 +31,17 @@ human_readable: |
   Escalate if:      The gate still fails with no remaining new issues.
   Open questions:   none
   Unknowns:         Environment not shown before the failure.
+
+  Self-RCA · TX-20261031-0012 · draft
+  Problem:              Concord flow for example-app failed at the build task.
+  Impact:               Delivery flow blocked
+  Trigger:              New code builds SQL by string concatenation
+  Root cause:           A new vulnerability lowered the security rating to 3, so the SonarQube gate correctly failed the Jenkins build   [basis: fact]
+  Contributing factors: Failure surfaced two tools downstream, in Concord
+  Why not caught earlier: No local static analysis before pushing
+  Resolution:           Use a parameterized query (proposed, not performed)
+  Prevention (manual, for the team to decide):
+    1. Run SonarLint or an equivalent locally — suggested owner: developer
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0012
@@ -85,3 +96,16 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: Concord flow for example-app failed at the build task.
+    impact: Delivery flow blocked
+    trigger: New code builds SQL by string concatenation
+    root_cause: A new vulnerability lowered the security rating to 3, so the SonarQube gate correctly failed the Jenkins build
+    root_cause_basis: fact
+    contributing_factors:
+    - Failure surfaced two tools downstream, in Concord
+    why_not_caught_earlier: No local static analysis before pushing
+    resolution: Use a parameterized query (proposed, not performed)
+    prevention:
+    - 'Run SonarLint or an equivalent locally — suggested owner: developer'

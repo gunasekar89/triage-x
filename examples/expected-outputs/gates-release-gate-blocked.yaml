@@ -30,6 +30,17 @@ human_readable: |
   Escalate if:      The finding is believed to be a false positive (L1 review).
   Open questions:   none
   Unknowns:         none
+
+  Self-RCA · TX-20261031-0008 · draft
+  Problem:              example-app 2.8.0 promotion to stage blocked by the release gate.
+  Impact:               Release delayed
+  Trigger:              example-json-parser bumped 1.1.4 to 1.2.0
+  Root cause:           The new dependency version has a critical vulnerability, which the gate correctly blocks   [basis: fact]
+  Contributing factors: none identified
+  Why not caught earlier: No dependency vulnerability scan ran before the release gate
+  Resolution:           Move to a fixed version and re-run the gate (proposed, not performed)
+  Prevention (manual, for the team to decide):
+    1. Run a dependency vulnerability scan in CI before the release gate — suggested owner: team
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0008
@@ -78,3 +89,15 @@ triage_result:
   slack:
     expected: false
     posted: false
+  rca:
+    status: draft
+    problem: example-app 2.8.0 promotion to stage blocked by the release gate.
+    impact: Release delayed
+    trigger: example-json-parser bumped 1.1.4 to 1.2.0
+    root_cause: The new dependency version has a critical vulnerability, which the gate correctly blocks
+    root_cause_basis: fact
+    contributing_factors: []
+    why_not_caught_earlier: No dependency vulnerability scan ran before the release gate
+    resolution: Move to a fixed version and re-run the gate (proposed, not performed)
+    prevention:
+    - 'Run a dependency vulnerability scan in CI before the release gate — suggested owner: team'

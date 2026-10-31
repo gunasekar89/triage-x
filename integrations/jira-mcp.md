@@ -44,7 +44,8 @@ Title:   [TRIAGE-X][<tool>] <short failure summary> — <app> (<env>)
 Labels:  triage-x, triage-x-<tool>
 Body:    Summary · Lifecycle stage · Target · Evidence (sanitized) ·
          What changed · Checks completed · Likely cause + confidence ·
-         Unknowns · Requested action · NLH (prod-team cases only)
+         Unknowns · Requested action · Self-RCA ·
+         NLH (prod-team cases only)
 Fields:  TODO(owner) — issue type, components, priority mapping
 ```
 

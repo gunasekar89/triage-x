@@ -29,7 +29,7 @@ Run these steps in order. Stop early and report as soon as the evidence supports
 7. **Classification.** Apply `core/classification.md` to choose **Self-fix**, **L1 issue** or **Prod team needed**, a primary failure category, blast radius and confidence. If you cannot classify, set status `needs-input` or `blocked-access` instead.
 8. **Confirmation.** For L1 or Prod-team outcomes, show the Jira draft (and the Slack summary for Prod team) and ask the developer to confirm. Search for a related open issue first when permitted.
 9. **Permitted writes.** After explicit confirmation only: create the Jira issue; for Prod team, post the Slack notification **after** the Jira issue exists. Report the real result of each write.
-10. **Result.** Return the full output contract.
+10. **Result and Self-RCA.** Return the full output contract. For a `complete` triage, add the Self-RCA (`core/self-rca.md`): problem, trigger, root cause with its basis (fact, likely or hypothesis), why it was not caught earlier, resolution and prevention suggestions. Never mark the RCA confirmed until the developer confirms the fix worked.
 
 ## 3. Derive before asking
 
@@ -69,7 +69,8 @@ Full rules: `core/classification.md`.
 Return both parts every time, exactly as defined in `core/output-contract.md`:
 
 1. The human-readable block starting `TRIAGE-X Result · <triage-id>`.
-2. The YAML `triage_result` block (schema version `1.0`).
+2. The YAML `triage_result` block (schema version `1.0`), including the optional `rca` object.
+3. For `complete` triages, the Self-RCA block (`core/self-rca.md`).
 
 Keep **Actions taken (confirmed)** strictly separate from **Proposed manual actions (not performed)**. An action appears under "taken" only when an integration returned a result; record its real status (`succeeded`, `failed`, `unverified`).
 

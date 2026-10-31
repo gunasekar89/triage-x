@@ -46,6 +46,17 @@ human_readable: |
     Ticket:       PGPTOOLS-0001
 
   STRCONTAIN movement is a manual support decision; TRIAGE-X has not moved this ticket.
+
+  Self-RCA · TX-20261031-0003 · draft
+  Problem:              example-app prod deploy stuck with pods Pending.
+  Impact:               unknown (not confirmed by the developer)
+  Trigger:              No application change; no CPU request change in this release
+  Root cause:           CPU capacity on the cluster is exhausted, affecting this and 7 other namespaces   [basis: likely]
+  Contributing factors: Node pool autoscaling state not visible
+  Why not caught earlier: Cluster capacity is outside the developer's visibility
+  Resolution:           Production team validates and restores capacity (PGPTOOLS-0001)
+  Prevention (manual, for the team to decide):
+    1. Prevention to be decided by the production team after their review — suggested owner: TODO(owner)
 triage_result:
   schema_version: '1.0'
   triage_id: TX-20261031-0003
@@ -120,3 +131,16 @@ triage_result:
     posted: true
     draft_provided: true
   strcontain_transition: false
+  rca:
+    status: draft
+    problem: example-app prod deploy stuck with pods Pending.
+    impact: unknown (not confirmed by the developer)
+    trigger: No application change; no CPU request change in this release
+    root_cause: CPU capacity on the cluster is exhausted, affecting this and 7 other namespaces
+    root_cause_basis: likely
+    contributing_factors:
+    - Node pool autoscaling state not visible
+    why_not_caught_earlier: Cluster capacity is outside the developer's visibility
+    resolution: Production team validates and restores capacity (PGPTOOLS-0001)
+    prevention:
+    - 'Prevention to be decided by the production team after their review — suggested owner: TODO(owner)'

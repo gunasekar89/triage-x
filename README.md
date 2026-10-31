@@ -34,7 +34,7 @@ Today application teams raise delivery issues to L1 support engineers, who then 
    - **Self-fix**: steps you can take, with how to verify them;
    - **L1 issue**: a PGPTOOLS Jira ticket (after you confirm the draft);
    - **Prod team needed**: a PGPTOOLS ticket, an NLH, and a Slack notification (after you confirm).
-7. It returns a **standard result** with both a readable summary and a machine-readable block.
+7. It returns a **standard result** with both a readable summary and a machine-readable block, plus a short **self-service RCA** (problem, trigger, root cause, why it was not caught earlier, prevention) for every completed triage.
 8. The support team decides manually whether to move a ticket to STRCONTAIN. **TRIAGE-X never does.**
 
 ## 3. Lifecycle stage map
@@ -92,6 +92,7 @@ Every triage returns two parts, defined in `core/output-contract.md`:
 
 1. **Human-readable result** beginning `TRIAGE-X Result · <triage-id>`, with stage, reporting tool, likely failing tool, category, target, blast radius, evidence (facts and hypotheses), what changed, likely cause, confidence, classification, status, actions taken and proposed manual actions.
 2. **Machine-readable `triage_result`** in YAML, validated by `schemas/triage-result.schema.json` (schema version `1.0`).
+3. **Self-RCA** for completed triages (`core/self-rca.md`), also stored as `triage_result.rca`. It stays a `draft` until the developer confirms the fix worked.
 
 ## 7. Runtime permissions
 
@@ -131,7 +132,7 @@ To install the skill, load `SKILL.md` plus the `core/`, `tools/` and `integratio
 
 ```text
 SKILL.md                 Skill entry point (workflow and guardrails)
-core/                    Router, stages, classification, contract, evidence, security, NLH
+core/                    Router, stages, classification, contract, evidence, security, NLH, Self-RCA
 schemas/                 JSON Schema for triage_result
 tools/<tool>/            context.md, checks.md, runbooks.md per tool (+ _template)
 integrations/            Jira MCP and Slack contracts

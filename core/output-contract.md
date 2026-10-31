@@ -34,6 +34,13 @@ Verify by:        <how the developer confirms resolution>
 Escalate if:      <condition>
 Open questions:   <one focused question, if any>
 Unknowns:         <list>
+
+Self-RCA · <triage-id> · <draft | confirmed-by-developer>      (complete triages only; see core/self-rca.md)
+Problem:              ...
+Trigger:              ...
+Root cause:           ...   [basis: fact | likely | hypothesis]
+Why not caught earlier: ...
+Prevention (manual):  1. ...
 ```
 
 Rules:
@@ -68,6 +75,16 @@ triage_result:
   unknowns: []
   jira:  { expected: false, created: false, key: null, draft_provided: false }
   slack: { expected: false, posted: false }
+  rca:                                  # optional; see core/self-rca.md
+    status: "draft"                     # not-applicable | draft | confirmed-by-developer
+    problem: "Build #142 blocked by the quality gate"
+    trigger: "OrderExportService added without tests"
+    root_cause: "New code lacks tests, so coverage on new code is 61.2% (< 80%)"
+    root_cause_basis: "fact"            # fact | likely | hypothesis
+    contributing_factors: []
+    why_not_caught_earlier: "Coverage was not checked locally before pushing"
+    resolution: "Add tests and re-run (proposed, not performed)"
+    prevention: ["Run tests with coverage locally before pushing"]
 ```
 
 ## Field reference
@@ -94,6 +111,7 @@ triage_result:
 | `open_questions[]` | max 1 | One question at a time. |
 | `jira` | object | `expected` = classification calls for a ticket; `created` only on confirmed success; `key` null unless created. |
 | `slack` | object | Only `prod-team` may set `expected`; `posted` requires `jira.created`. |
+| `rca` | object (optional) | Self-RCA (`core/self-rca.md`). `status: not-applicable` unless the triage is `complete`; `confirmed-by-developer` only after the developer confirms the fix. |
 | `strcontain_transition` | `false` (optional) | Explicit assertion; can never be true. |
 
 ## Expected Jira ticket format
@@ -103,7 +121,8 @@ Title:   [TRIAGE-X][<tool>] <short failure summary> — <app> (<env>)
 Labels:  triage-x, triage-x-<tool>
 Body:    Summary · Lifecycle stage · Target · Evidence (sanitized) ·
          What changed · Checks completed · Likely cause + confidence ·
-         Unknowns · Requested action · NLH (prod-team cases only)
+         Unknowns · Requested action · Self-RCA ·
+         NLH (prod-team cases only)
 Fields:  TODO(owner) — issue type, components, priority mapping
 ```
 

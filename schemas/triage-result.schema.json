@@ -4,183 +4,834 @@
   "title": "TRIAGE-X triage result",
   "description": "Machine-readable part of the TRIAGE-X output contract (core/output-contract.md). Schema version 1.0.",
   "type": "object",
-  "required": ["triage_result"],
+  "required": [
+    "triage_result"
+  ],
   "additionalProperties": false,
   "properties": {
-    "triage_result": { "$ref": "#/$defs/triageResult" }
+    "triage_result": {
+      "$ref": "#/$defs/triageResult"
+    }
   },
   "$defs": {
     "stage": {
       "type": "string",
-      "enum": ["source-change", "ci-build", "quality-security", "package-publish", "orchestrate-deliver", "deploy", "run-operate"]
+      "enum": [
+        "source-change",
+        "ci-build",
+        "quality-security",
+        "package-publish",
+        "orchestrate-deliver",
+        "deploy",
+        "run-operate"
+      ]
     },
     "tool": {
       "type": "string",
-      "enum": ["github", "jenkins", "concord", "gates", "sonarqube", "artifactory", "docker", "kubernetes", "wcnp"]
+      "enum": [
+        "github",
+        "jenkins",
+        "concord",
+        "gates",
+        "sonarqube",
+        "artifactory",
+        "docker",
+        "kubernetes",
+        "wcnp"
+      ]
     },
     "category": {
       "type": "string",
-      "enum": ["code-change", "configuration", "dependency", "credentials-access", "policy-gate", "capacity-quota", "platform-infra", "transient-flaky", "unknown"]
+      "enum": [
+        "code-change",
+        "configuration",
+        "dependency",
+        "credentials-access",
+        "policy-gate",
+        "capacity-quota",
+        "platform-infra",
+        "transient-flaky",
+        "unknown"
+      ]
     },
-    "nullableString": { "type": ["string", "null"] },
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
     "evidenceItem": {
       "type": "object",
-      "required": ["kind", "source", "summary"],
+      "required": [
+        "kind",
+        "source",
+        "summary"
+      ],
       "additionalProperties": false,
       "properties": {
-        "kind": { "type": "string", "enum": ["fact", "hypothesis"] },
-        "source": { "type": "string", "minLength": 1 },
-        "ref": { "type": ["string", "null"] },
-        "summary": { "type": "string", "minLength": 1 },
-        "confirm_by": { "type": ["string", "null"], "description": "For hypotheses: what would confirm it." }
+        "kind": {
+          "type": "string",
+          "enum": [
+            "fact",
+            "hypothesis"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confirm_by": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "For hypotheses: what would confirm it."
+        }
       },
       "allOf": [
         {
-          "if": { "properties": { "kind": { "const": "hypothesis" } } },
-          "then": { "required": ["confirm_by"], "properties": { "confirm_by": { "type": "string", "minLength": 1 } } }
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "hypothesis"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "confirm_by"
+            ],
+            "properties": {
+              "confirm_by": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
         }
       ]
     },
     "changeItem": {
       "type": "object",
-      "required": ["source", "summary"],
+      "required": [
+        "source",
+        "summary"
+      ],
       "additionalProperties": false,
       "properties": {
-        "source": { "type": "string" },
-        "ref": { "type": ["string", "null"] },
-        "summary": { "type": "string" },
+        "source": {
+          "type": "string"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
         "change_type": {
           "type": "string",
-          "enum": ["code", "pipeline-definition", "deployment-config", "base-image", "dependency", "credentials", "platform-notice", "other"]
+          "enum": [
+            "code",
+            "pipeline-definition",
+            "deployment-config",
+            "base-image",
+            "dependency",
+            "credentials",
+            "platform-notice",
+            "other"
+          ]
         }
       }
     },
     "actionTaken": {
       "type": "object",
-      "required": ["action", "status"],
+      "required": [
+        "action",
+        "status"
+      ],
       "additionalProperties": false,
       "properties": {
-        "action": { "type": "string", "enum": ["jira-create", "jira-search", "slack-post", "read-only-check"] },
-        "status": { "type": "string", "enum": ["succeeded", "failed", "unverified"] },
-        "ref": { "type": ["string", "null"] },
-        "detail": { "type": ["string", "null"] }
+        "action": {
+          "type": "string",
+          "enum": [
+            "jira-create",
+            "jira-search",
+            "slack-post",
+            "read-only-check"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "succeeded",
+            "failed",
+            "unverified"
+          ]
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "triageResult": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "schema_version", "triage_id", "request_ref", "lifecycle_stage", "reported_tool", "primary_tool",
-        "secondary_tools", "failure_category", "target", "blast_radius", "classification", "status",
-        "confidence", "evidence", "change_evidence", "actions_taken", "proposed_manual_actions",
-        "open_questions", "unknowns", "jira", "slack"
+        "schema_version",
+        "triage_id",
+        "request_ref",
+        "lifecycle_stage",
+        "reported_tool",
+        "primary_tool",
+        "secondary_tools",
+        "failure_category",
+        "target",
+        "blast_radius",
+        "classification",
+        "status",
+        "confidence",
+        "evidence",
+        "change_evidence",
+        "actions_taken",
+        "proposed_manual_actions",
+        "open_questions",
+        "unknowns",
+        "jira",
+        "slack"
       ],
       "properties": {
-        "schema_version": { "const": "1.0" },
-        "triage_id": { "type": "string", "pattern": "^TX-[0-9]{8}-[0-9]{4}$" },
-        "request_ref": { "type": "string", "minLength": 1 },
+        "schema_version": {
+          "const": "1.0"
+        },
+        "triage_id": {
+          "type": "string",
+          "pattern": "^TX-[0-9]{8}-[0-9]{4}$"
+        },
+        "request_ref": {
+          "type": "string",
+          "minLength": 1
+        },
         "lifecycle_stage": {
           "type": "object",
-          "required": ["first_failing", "reported_at"],
+          "required": [
+            "first_failing",
+            "reported_at"
+          ],
           "additionalProperties": false,
           "properties": {
-            "first_failing": { "oneOf": [{ "$ref": "#/$defs/stage" }, { "type": "null" }] },
-            "reported_at": { "oneOf": [{ "$ref": "#/$defs/stage" }, { "type": "null" }] }
+            "first_failing": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/stage"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "reported_at": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/stage"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
           }
         },
-        "reported_tool": { "oneOf": [{ "$ref": "#/$defs/tool" }, { "type": "null" }] },
-        "primary_tool": { "oneOf": [{ "$ref": "#/$defs/tool" }, { "type": "null" }] },
-        "secondary_tools": { "type": "array", "items": { "$ref": "#/$defs/tool" }, "uniqueItems": true },
-        "failure_category": { "$ref": "#/$defs/category" },
+        "reported_tool": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/tool"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "primary_tool": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/tool"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "secondary_tools": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tool"
+          },
+          "uniqueItems": true
+        },
+        "failure_category": {
+          "$ref": "#/$defs/category"
+        },
         "target": {
           "type": "object",
-          "required": ["app", "environment", "cluster", "namespace", "source"],
+          "required": [
+            "app",
+            "environment",
+            "cluster",
+            "namespace",
+            "source"
+          ],
           "additionalProperties": false,
           "properties": {
-            "app": { "$ref": "#/$defs/nullableString" },
-            "environment": { "$ref": "#/$defs/nullableString" },
-            "cluster": { "$ref": "#/$defs/nullableString" },
-            "namespace": { "$ref": "#/$defs/nullableString" },
-            "source": { "$ref": "#/$defs/nullableString" },
-            "confirmed": { "type": "boolean", "description": "True only when a single target is supported by evidence or chosen by the developer." }
+            "app": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "environment": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "cluster": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "namespace": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "source": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "confirmed": {
+              "type": "boolean",
+              "description": "True only when a single target is supported by evidence or chosen by the developer."
+            }
           }
         },
-        "blast_radius": { "type": "string", "enum": ["single-app", "multi-app", "unknown"] },
+        "blast_radius": {
+          "type": "string",
+          "enum": [
+            "single-app",
+            "multi-app",
+            "unknown"
+          ]
+        },
         "classification": {
           "description": "Ownership classification. Null when no classification can be claimed yet (status needs-input or blocked-access).",
-          "oneOf": [{ "type": "string", "enum": ["self-fix", "l1", "prod-team"] }, { "type": "null" }]
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "self-fix",
+                "l1",
+                "prod-team"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
-        "status": { "type": "string", "enum": ["complete", "needs-input", "blocked-access"] },
+        "status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "needs-input",
+            "blocked-access"
+          ]
+        },
         "confidence": {
           "type": "object",
-          "required": ["level", "reason"],
+          "required": [
+            "level",
+            "reason"
+          ],
           "additionalProperties": false,
           "properties": {
-            "level": { "type": "string", "enum": ["high", "medium", "low"] },
-            "reason": { "type": "string", "minLength": 1 }
+            "level": {
+              "type": "string",
+              "enum": [
+                "high",
+                "medium",
+                "low"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         },
-        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidenceItem" } },
-        "change_evidence": { "type": "array", "items": { "$ref": "#/$defs/changeItem" } },
-        "actions_taken": { "type": "array", "items": { "$ref": "#/$defs/actionTaken" } },
-        "proposed_manual_actions": { "type": "array", "items": { "type": "string" } },
-        "open_questions": { "type": "array", "items": { "type": "string" }, "maxItems": 1 },
-        "unknowns": { "type": "array", "items": { "type": "string" } },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceItem"
+          }
+        },
+        "change_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/changeItem"
+          }
+        },
+        "actions_taken": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/actionTaken"
+          }
+        },
+        "proposed_manual_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 1
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "jira": {
           "type": "object",
-          "required": ["expected", "created", "key", "draft_provided"],
+          "required": [
+            "expected",
+            "created",
+            "key",
+            "draft_provided"
+          ],
           "additionalProperties": false,
           "properties": {
-            "expected": { "type": "boolean" },
-            "created": { "type": "boolean" },
-            "key": { "$ref": "#/$defs/nullableString" },
-            "draft_provided": { "type": "boolean" },
-            "related_issue": { "$ref": "#/$defs/nullableString" }
+            "expected": {
+              "type": "boolean"
+            },
+            "created": {
+              "type": "boolean"
+            },
+            "key": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "draft_provided": {
+              "type": "boolean"
+            },
+            "related_issue": {
+              "$ref": "#/$defs/nullableString"
+            }
           },
           "allOf": [
-            { "if": { "properties": { "created": { "const": true } } }, "then": { "properties": { "key": { "type": "string" } } } },
-            { "if": { "properties": { "created": { "const": false } } }, "then": { "properties": { "key": { "type": "null" } } } }
+            {
+              "if": {
+                "properties": {
+                  "created": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "created": {
+                    "const": false
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "key": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
           ]
         },
         "slack": {
           "type": "object",
-          "required": ["expected", "posted"],
+          "required": [
+            "expected",
+            "posted"
+          ],
           "additionalProperties": false,
           "properties": {
-            "expected": { "type": "boolean" },
-            "posted": { "type": "boolean" },
-            "draft_provided": { "type": "boolean" }
+            "expected": {
+              "type": "boolean"
+            },
+            "posted": {
+              "type": "boolean"
+            },
+            "draft_provided": {
+              "type": "boolean"
+            }
           }
         },
         "strcontain_transition": {
           "const": false,
           "description": "TRIAGE-X never moves tickets to STRCONTAIN. Present only as an explicit assertion."
+        },
+        "rca": {
+          "$ref": "#/$defs/rca"
         }
       },
       "allOf": [
         {
-          "if": { "properties": { "status": { "const": "complete" } } },
-          "then": { "properties": { "classification": { "type": "string" } } }
+          "if": {
+            "properties": {
+              "status": {
+                "const": "complete"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "classification": {
+                "type": "string"
+              }
+            }
+          }
         },
         {
-          "if": { "properties": { "classification": { "enum": ["self-fix", null] } } },
-          "then": { "properties": { "slack": { "properties": { "expected": { "const": false }, "posted": { "const": false } } } } }
+          "if": {
+            "properties": {
+              "classification": {
+                "enum": [
+                  "self-fix",
+                  null
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "slack": {
+                "properties": {
+                  "expected": {
+                    "const": false
+                  },
+                  "posted": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          }
         },
         {
-          "if": { "properties": { "classification": { "const": "l1" } } },
-          "then": { "properties": { "slack": { "properties": { "expected": { "const": false }, "posted": { "const": false } } } } }
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "l1"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "slack": {
+                "properties": {
+                  "expected": {
+                    "const": false
+                  },
+                  "posted": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          }
         },
         {
-          "if": { "properties": { "classification": { "const": "self-fix" } } },
-          "then": { "properties": { "jira": { "properties": { "expected": { "const": false }, "created": { "const": false } } } } }
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "self-fix"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "jira": {
+                "properties": {
+                  "expected": {
+                    "const": false
+                  },
+                  "created": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          }
         },
         {
-          "if": { "properties": { "slack": { "properties": { "posted": { "const": true } } } } },
-          "then": { "properties": { "jira": { "properties": { "created": { "const": true } } } } }
+          "if": {
+            "properties": {
+              "slack": {
+                "properties": {
+                  "posted": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "jira": {
+                "properties": {
+                  "created": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
         },
         {
-          "if": { "properties": { "confidence": { "properties": { "level": { "const": "low" } } } } },
-          "then": { "properties": { "classification": { "not": { "enum": ["self-fix", "prod-team"] } } } }
+          "if": {
+            "properties": {
+              "confidence": {
+                "properties": {
+                  "level": {
+                    "const": "low"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "classification": {
+                "not": {
+                  "enum": [
+                    "self-fix",
+                    "prod-team"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "needs-input",
+                  "blocked-access"
+                ]
+              }
+            },
+            "required": [
+              "rca"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rca": {
+                "properties": {
+                  "status": {
+                    "const": "not-applicable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "confidence": {
+                "properties": {
+                  "level": {
+                    "const": "low"
+                  }
+                }
+              }
+            },
+            "required": [
+              "rca"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rca": {
+                "properties": {
+                  "root_cause_basis": {
+                    "const": "hypothesis"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "confidence": {
+                "properties": {
+                  "level": {
+                    "const": "medium"
+                  }
+                }
+              }
+            },
+            "required": [
+              "rca"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rca": {
+                "properties": {
+                  "root_cause_basis": {
+                    "enum": [
+                      "likely",
+                      "hypothesis"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "rca": {
+      "type": "object",
+      "description": "Self-service RCA (core/self-rca.md).",
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "not-applicable",
+            "draft",
+            "confirmed-by-developer"
+          ]
+        },
+        "problem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impact": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "trigger": {
+          "type": "string",
+          "minLength": 1
+        },
+        "root_cause": {
+          "type": "string",
+          "minLength": 1
+        },
+        "root_cause_basis": {
+          "type": "string",
+          "enum": [
+            "fact",
+            "likely",
+            "hypothesis"
+          ]
+        },
+        "contributing_factors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "why_not_caught_earlier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prevention": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "time",
+              "event"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "time": {
+                "type": "string"
+              },
+              "event": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "draft",
+                  "confirmed-by-developer"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "problem",
+              "trigger",
+              "root_cause",
+              "root_cause_basis",
+              "why_not_caught_earlier",
+              "resolution",
+              "prevention"
+            ]
+          }
         }
       ]
     }
