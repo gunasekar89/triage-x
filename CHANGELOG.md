@@ -10,6 +10,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Replaced WCNP with CD Orchestration tools (AKS, GKE, EKS); the tool id is now `cd-orchestration` (module, schema enum, examples and evaluation cases renamed; pattern IDs CO-xx).
 
 ### Added
+- Process readiness: `docs/process/quick-start.md` (paste mode), `operating-process.md` (roles, flow, feedback log, weekly review), `onboarding-checklist.md` (team onboarding, shadow go-live, enabling writes), and `scripts/bundle.py` (one-file skill bundle, checked by `validate.py`).
 - Self-service RCA: `core/self-rca.md`, optional `rca` object in `triage_result` (additive, schema stays 1.0), Self-RCA block in results and Jira tickets.
 - Initial scaffold: `SKILL.md`, core reasoning documents, output contract and `triage_result` schema v1.0.
 - Tool modules for GitHub, Jenkins, Concord, Gates, SonarQube, Artifactory, Docker, Kubernetes and CD Orchestration tools (AKS, GKE, EKS), each with 5–8 failure patterns, plus a module template.

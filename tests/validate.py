@@ -48,6 +48,8 @@ REQUIRED_FILES = [
     "tests/validate.py", "tests/requirements.txt",
     "examples/inputs/kitt-multi-target.example.yml",
     "config/triage-x.config.example.yaml",
+    "docs/process/quick-start.md", "docs/process/operating-process.md", "docs/process/onboarding-checklist.md",
+    "scripts/bundle.py",
 ]
 
 CONTEXT_SECTIONS = ["## Role in the lifecycle", "## Context to collect", "## Identifiers and target resolution",
@@ -322,6 +324,29 @@ def check_sensitive() -> list[str]:
     return errs
 
 
+def check_bundle() -> list[str]:
+    """Build the one-file bundle into a temp dir and confirm every source file is included."""
+    import subprocess
+    import tempfile
+    errs = []
+    with tempfile.TemporaryDirectory() as td:
+        out = Path(td) / "bundle.md"
+        res = subprocess.run([sys.executable, str(ROOT / "scripts" / "bundle.py"), "--out", str(out)],
+                             capture_output=True, text=True)
+        if res.returncode != 0:
+            return [f"scripts/bundle.py failed: {res.stderr.strip() or res.stdout.strip()}"]
+        text = out.read_text()
+    if not text.startswith("---\nname: triage-x"):
+        errs.append("bundle must start with SKILL.md frontmatter")
+    expected = [f"core/{p.name}" for p in (ROOT / "core").glob("*.md")]
+    expected += [f"tools/{t}/{f}" for t in TOOLS for f in ("context.md", "checks.md", "runbooks.md")]
+    expected += ["integrations/jira-mcp.md", "integrations/slack.md"]
+    for e in expected:
+        if f"===== {e} =====" not in text:
+            errs.append(f"bundle is missing {e}")
+    return errs
+
+
 def main() -> int:
     print(f"TRIAGE-X static validation · {ROOT}\n")
     rep = Report()
@@ -330,6 +355,7 @@ def main() -> int:
     rep.check("evaluation cases", check_eval_cases())
     rep.check("expected outputs vs schema", check_expected_outputs())
     rep.check("sensitive-content scan", check_sensitive())
+    rep.check("skill bundle", check_bundle())
     print("\nNOT RUN: behavioral evaluation (needs the skill platform; see docs/evaluation-and-improvement.md)")
     if rep.errors:
         print(f"\n{len(rep.errors)} problem(s):")

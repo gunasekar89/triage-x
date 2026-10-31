@@ -107,7 +107,14 @@ The only runtime writes, each **after the developer confirms the draft**:
 
 Whether confirmation can ever be skipped is `TODO(owner)`. Prompt instructions are **not** a security boundary: permissions must be enforced by the integrations and platform configuration (`core/security-and-privacy.md`).
 
-## 8. Setup and validation
+## 8. Using it now
+
+- **Developers:** start with [`docs/process/quick-start.md`](docs/process/quick-start.md). TRIAGE-X works today in paste mode (no integrations needed).
+- **Support process:** [`docs/process/operating-process.md`](docs/process/operating-process.md) covers roles, flow, the feedback log and the weekly review.
+- **Teams and go-live:** [`docs/process/onboarding-checklist.md`](docs/process/onboarding-checklist.md).
+- **One-file skill:** `python3 scripts/bundle.py` writes `dist/triage-x-skill.md`. Add `--tools jenkins,sonarqube,cd-orchestration,concord,github` for a smaller pilot bundle.
+
+## 8a. Setup and validation
 
 Requirements: Python 3.10+.
 
@@ -124,7 +131,8 @@ python3 tests/validate.py
 - every tool module has `context.md`, `checks.md` and `runbooks.md`, each with required sections, and every runbook has 5–8 complete failure patterns;
 - every file in `examples/expected-outputs/` validates against the schema and every input has a matching expected output;
 - every tool has at least four evaluation cases in `tests/cases/` and all cross-cutting cases are present and complete;
-- no real-looking URLs, hostnames, IPs, e-mail addresses or secret-like strings appear in the repository.
+- no real-looking URLs, hostnames, IPs, e-mail addresses or secret-like strings appear in the repository;
+- `scripts/bundle.py` builds a one-file skill that includes every core, integration and tool file.
 
 It does **not** run behavioral evaluation (asking the model to triage the cases and scoring the answers). That needs the in-house skill platform and the real integrations; see `docs/evaluation-and-improvement.md`.
 
