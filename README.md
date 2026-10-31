@@ -4,6 +4,8 @@ AI skill for developer self-service triage across the DevOps lifecycle. Auto-det
 
 TRIAGE-X is an AI skill that helps a developer investigate a failed build, quality gate, publish, pipeline or deployment **before** raising a support ticket, and that makes sure any ticket it does raise arrives with complete, sanitized evidence.
 
+![TRIAGE-X at a glance](docs/images/triage-x-infographic.png)
+
 > Status: `v0.1.0-pilot` scaffold. Organization-specific details are marked `TODO(owner)`. All examples are synthetic.
 
 ---
