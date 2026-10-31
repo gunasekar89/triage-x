@@ -1,6 +1,6 @@
 # Next Level Handover (NLH) template
 
-Used only for **Prod team needed**. TRIAGE-X drafts the NLH; the developer confirms; it is included in the Jira ticket body. TRIAGE-X never claims the production team accepted it and never moves the ticket to STRCONTAIN.
+Used only for **Prod team needed**. TRIAGE-X drafts the NLH; the developer confirms; it is included in the Jira ticket body. TRIAGE-X never claims the production team accepted it and never moves the ticket to another queue.
 
 ```text
 NEXT LEVEL HANDOVER · <triage-id> · <Jira key or "draft">
@@ -40,7 +40,7 @@ NEXT LEVEL HANDOVER · <triage-id> · <Jira key or "draft">
 10. Remaining unknowns
    - <unknown>
 
-Note: Moving this ticket to STRCONTAIN is a manual support decision. TRIAGE-X has not moved it.
+Note: Moving this ticket to L3 or another queue is a manual support decision. TRIAGE-X has not moved it.
 ```
 
 ## Completeness checklist

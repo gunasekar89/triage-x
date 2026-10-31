@@ -496,9 +496,9 @@
             }
           }
         },
-        "strcontain_transition": {
+        "ticket_transition": {
           "const": false,
-          "description": "TRIAGE-X never moves tickets to STRCONTAIN. Present only as an explicit assertion."
+          "description": "TRIAGE-X never transitions, moves or reassigns tickets. Present only as an explicit assertion."
         },
         "rca": {
           "$ref": "#/$defs/rca"

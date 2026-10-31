@@ -78,7 +78,7 @@ CROSS_CUTTING_TOPICS = {
     "Jira failure / ambiguous write": r"jira creation fails",
     "Slack failure": r"slack notification fails",
     "duplicate ticket": r"duplicate ticket",
-    "STRCONTAIN attempt": r"strcontain",
+    "ticket transition attempt": r"ticket transition",
     "Self-RCA not overstated": r"self-rca not confirmed",
 }
 

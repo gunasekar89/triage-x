@@ -56,7 +56,7 @@
   - Read-only checks only; no system changes
   - Jira draft shown and created only after developer confirmation
   - NLH drafted
-  - States STRCONTAIN movement is manual
+  - States queue movement is manual
   rationale: Worked example 3.
 - id: CO-E03
   title: Image pull unauthorized

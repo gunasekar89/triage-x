@@ -112,7 +112,7 @@ triage_result:
 | `jira` | object | `expected` = classification calls for a ticket; `created` only on confirmed success; `key` null unless created. |
 | `slack` | object | Only `prod-team` may set `expected`; `posted` requires `jira.created`. |
 | `rca` | object (optional) | Self-RCA (`core/self-rca.md`). `status: not-applicable` unless the triage is `complete`; `confirmed-by-developer` only after the developer confirms the fix. |
-| `strcontain_transition` | `false` (optional) | Explicit assertion; can never be true. |
+| `ticket_transition` | `false` (optional) | Explicit assertion; can never be true. |
 
 ## Expected Jira ticket format
 

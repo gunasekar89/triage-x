@@ -45,7 +45,7 @@ human_readable: |
     Ask:          Validate CPU capacity on <cluster-name> and advise on scheduling
     Ticket:       EXAMPLE-1002
 
-  STRCONTAIN movement is a manual support decision; TRIAGE-X has not moved this ticket.
+  Moving this ticket to L3 or another queue is a manual support decision; TRIAGE-X has not moved it.
 
   Self-RCA · TX-20261031-0003 · draft
   Problem:              example-app prod deploy stuck with pods Pending.
@@ -130,7 +130,7 @@ triage_result:
     expected: true
     posted: true
     draft_provided: true
-  strcontain_transition: false
+  ticket_transition: false
   rca:
     status: draft
     problem: example-app prod deploy stuck with pods Pending.

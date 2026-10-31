@@ -69,9 +69,9 @@ Use when evidence supports a **specific** need for production-team validation or
 1. Draft the Jira ticket and the NLH (`nlh-template.md`).
 2. Draft the Slack summary.
 3. After confirmation: create the Jira issue; then, only if it was created, post to Slack.
-4. State explicitly that moving to STRCONTAIN is a manual support decision.
+4. State explicitly that moving the ticket to L3 or another queue is a manual support decision.
 
-Never claim the production team accepted the issue or that it was moved to STRCONTAIN.
+Never claim the production team accepted the issue or that it was moved to another queue.
 
 ### D. Insufficient information or access (status, not a classification)
 Set `status: needs-input` (a developer answer is needed) or `status: blocked-access` (an integration or permission is missing), and `classification: null`.
@@ -91,4 +91,4 @@ Set `status: needs-input` (a developer answer is needed) or `status: blocked-acc
 | **Incomplete logs** (truncated console, rotated logs) | Say which part is missing; classify only on what is present; add "full log not available" to unknowns. |
 | **Inaccessible system** | Name the system and access needed; status `blocked-access` if it blocks classification; prepare an L1 draft if appropriate. |
 | **Developer disputes the result** | Re-check the specific evidence they question; do not change the classification without new evidence. |
-| **Request to transition to STRCONTAIN** | Refuse; explain that support moves tickets manually. Record `strcontain_transition: false`. |
+| **Request to transition a ticket (e.g. to L3)** | Refuse; explain that support moves tickets manually. Record `ticket_transition: false`. |

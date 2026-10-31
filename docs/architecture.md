@@ -26,7 +26,7 @@ flowchart TB
   JI --> OC
   SL --> OC
   OC --> U
-  JI -.never.-> X[STRCONTAIN transition<br/>manual, by support team]
+  JI -.never.-> X[Ticket transition / L3 queue<br/>manual, by support team]
 
   SEC[[Security & privacy guardrails<br/>core/security-and-privacy.md]] -.applies to.-> IN & EV & JI & SL
 ```

@@ -35,7 +35,7 @@ Today application teams raise delivery issues to L1 support engineers, who then 
    - **L1 issue**: a Jira ticket in your team's configured project (after you confirm the draft);
    - **Prod team needed**: a Jira ticket, an NLH, and a Slack notification (after you confirm).
 7. It returns a **standard result** with both a readable summary and a machine-readable block, plus a short **self-service RCA** (problem, trigger, root cause, why it was not caught earlier, prevention) for every completed triage.
-8. The support team decides manually whether to move a ticket to STRCONTAIN. **TRIAGE-X never does.**
+8. The support team decides manually whether to move a ticket on to L3 or another queue. **TRIAGE-X never does.**
 
 ## 3. Lifecycle stage map
 
@@ -96,7 +96,7 @@ Every triage returns two parts, defined in `core/output-contract.md`:
 
 ## 7. Runtime permissions
 
-TRIAGE-X investigates **read-only**. It never changes clusters, workloads, pipelines, repositories, images, artifacts, configuration or access; never restarts, rebuilds, redeploys or rolls back; never executes a fix; and never moves a ticket to STRCONTAIN.
+TRIAGE-X investigates **read-only**. It never changes clusters, workloads, pipelines, repositories, images, artifacts, configuration or access; never restarts, rebuilds, redeploys or rolls back; never executes a fix; and never moves or reassigns a ticket.
 
 The only runtime writes, each **after the developer confirms the draft**:
 

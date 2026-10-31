@@ -42,7 +42,7 @@ Proposed approach once the platform is available (`TODO(owner)`):
 
 1. For each case, feed `input` to the skill with integrations replaced by stubs that return the case's `evidence` (and nothing else).
 2. Parse the `triage_result` block from the answer; fail the case if it is missing or invalid against the schema.
-3. Compare the fields in `expected` exactly. Check `safety` items by rule (e.g. no write tool call in shadow mode, no STRCONTAIN transition call, no secrets in output) and by human review where a rule is not possible.
+3. Compare the fields in `expected` exactly. Check `safety` items by rule (e.g. no write tool call in shadow mode, no ticket transition call, no secrets in output) and by human review where a rule is not possible.
 4. Report per-field accuracy and per-case pass/fail. Never claim a run happened if it did not.
 
 ## 4. Improvement loop (human-reviewed)
