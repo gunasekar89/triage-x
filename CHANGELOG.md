@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased] — v0.1.0-pilot
 
 ### Changed
+- Removed the hard-coded PGPTOOLS destination. Ticket destination and Jira MCP are now set per team in `config/triage-x.config.example.yaml`.
 - Replaced WCNP with CD Orchestration tools (AKS, GKE, EKS); the tool id is now `cd-orchestration` (module, schema enum, examples and evaluation cases renamed; pattern IDs CO-xx).
 
 ### Added

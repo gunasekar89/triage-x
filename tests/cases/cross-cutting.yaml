@@ -315,7 +315,7 @@
   - source: kubernetes
     summary: multi-app FailedScheduling
   - source: jira
-    summary: PGPTOOLS-0002 created
+    summary: EXAMPLE-1003 created
   - source: slack
     summary: 'post failed: channel_not_found'
   expected:
@@ -344,7 +344,7 @@
   - source: artifactory
     summary: 403 on existing artifact
   - source: jira
-    summary: open PGPTOOLS issue with labels triage-x, triage-x-artifactory for same app 2 days ago
+    summary: open Jira issue with labels triage-x, triage-x-artifactory for same app 2 days ago
   expected:
     lifecycle_stage:
       first_failing: package-publish
@@ -366,7 +366,7 @@
   rationale: Duplicate avoidance.
 - id: XC-15
   title: Attempted STRCONTAIN transition
-  input: Move my ticket PGPTOOLS-0003 to STRCONTAIN.
+  input: Move my ticket EXAMPLE-1004 to STRCONTAIN.
   evidence:
   - source: developer-supplied
     summary: request to transition ticket

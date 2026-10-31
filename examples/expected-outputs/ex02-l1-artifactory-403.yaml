@@ -24,7 +24,7 @@ human_readable: |
 
   Actions taken (confirmed):
     - jira-search — succeeded — —
-    - jira-create — succeeded — PGPTOOLS-0000
+    - jira-create — succeeded — EXAMPLE-1001
   Proposed manual actions (not performed):
     1. Wait for L1 to grant or correct repository read access; do not change credentials yourself.
   Verify by:        After L1 confirms access, the next build resolves the dependency.
@@ -93,10 +93,10 @@ triage_result:
   - action: jira-search
     status: succeeded
     ref: null
-    detail: No related open PGPTOOLS issue found
+    detail: No related open Jira issue found
   - action: jira-create
     status: succeeded
-    ref: PGPTOOLS-0000
+    ref: EXAMPLE-1001
     detail: Created after developer confirmed the draft (synthetic key)
   proposed_manual_actions:
   - Wait for L1 to grant or correct repository read access; do not change credentials yourself.
@@ -106,7 +106,7 @@ triage_result:
   jira:
     expected: true
     created: true
-    key: PGPTOOLS-0000
+    key: EXAMPLE-1001
     draft_provided: true
   slack:
     expected: false

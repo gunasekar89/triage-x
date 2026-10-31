@@ -15,7 +15,7 @@
 # /core/security-and-privacy.md   TODO(owner): security reviewers
 #
 # Integrations:
-# /integrations/jira-mcp.md TODO(owner): Jira/PGPTOOLS owners
+# /integrations/jira-mcp.md TODO(owner): Jira MCP integration owners
 # /integrations/slack.md    TODO(owner): Slack integration owners
 #
 # Tool modules (one owning team per tool):

@@ -12,7 +12,7 @@
 ## 2. When to notify
 
 - **Only** for classification **Prod team needed**.
-- **Only after** the PGPTOOLS Jira issue exists (`jira.created: true` with a key).
+- **Only after** the Jira issue exists (`jira.created: true` with a key).
 - **Only after** the developer confirmed the Slack summary.
 - Never in shadow mode.
 
@@ -25,7 +25,7 @@ Stage/Tool:   <stage> · <tool>
 Impact:       <confirmed impact or "unknown">
 Blast radius: <single-app | multi-app | unknown>
 Ask:          <specific validation requested>
-Ticket:       <PGPTOOLS key>
+Ticket:       <Jira key>
 ```
 
 Never include secrets, raw log dumps, real internal URLs, hostnames or employee names.

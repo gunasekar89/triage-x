@@ -1,9 +1,9 @@
 # Next Level Handover (NLH) template
 
-Used only for **Prod team needed**. TRIAGE-X drafts the NLH; the developer confirms; it is included in the PGPTOOLS ticket body. TRIAGE-X never claims the production team accepted it and never moves the ticket to STRCONTAIN.
+Used only for **Prod team needed**. TRIAGE-X drafts the NLH; the developer confirms; it is included in the Jira ticket body. TRIAGE-X never claims the production team accepted it and never moves the ticket to STRCONTAIN.
 
 ```text
-NEXT LEVEL HANDOVER · <triage-id> · <PGPTOOLS key or "draft">
+NEXT LEVEL HANDOVER · <triage-id> · <Jira key or "draft">
 
 1. Business / service impact
    <confirmed impact, or "unknown — not confirmed by evidence">

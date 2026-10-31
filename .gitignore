@@ -19,3 +19,6 @@ local/
 *.secret
 .env
 .env.*
+
+# Team-specific config (keep only the example in the repo)
+config/triage-x.config.yaml

@@ -1,18 +1,20 @@
 # Jira MCP integration contract
 
-TRIAGE-X creates PGPTOOLS tickets through the organization's **existing Jira MCP**. This document defines what TRIAGE-X needs from it. It does **not** name MCP tools or assume capabilities; the actual tool names and capabilities are `TODO(owner)`.
+TRIAGE-X creates Jira tickets through the **Jira MCP each team connects**, in the project each team configures. TRIAGE-X is a global tool: no project, board or dashboard is hard-coded. This document defines what TRIAGE-X needs from it. It does **not** name MCP tools or assume capabilities; the actual tool names and capabilities are `TODO(owner)`.
 
-## 1. Destination mapping
+## 1. Destination (configured per team)
 
-| Item | Value |
+TRIAGE-X is a global tool. Each team adds its own ticket destination and Jira MCP in a config file based on `config/triage-x.config.example.yaml`. If no destination is configured, TRIAGE-X only drafts tickets for manual creation.
+
+| Item | Where it comes from |
 |---|---|
-| Board | PGPTOOLS |
-| Jira project key behind the board | `TODO(owner)` |
-| Issue type for L1 issues | `TODO(owner)` |
-| Issue type for Prod-team cases | `TODO(owner)` |
-| Required fields | `TODO(owner)` |
-| Approved components (per tool?) | `TODO(owner)` |
-| Priority mapping (environment × impact) | `TODO(owner)`; proposed default below |
+| Jira MCP connection | The team connects its own Jira MCP (`jira.mcp_server`) |
+| Jira project key (or dashboard) | `jira.project_key` in the team's config |
+| Issue type for L1 issues | `jira.issue_types.l1` |
+| Issue type for Prod-team cases | `jira.issue_types.prod_team` |
+| Required fields | `jira.required_fields` |
+| Components | `jira.components` |
+| Priority mapping (environment × impact) | `jira.priority_map`; proposed default below |
 
 Proposed priority mapping for review (not policy):
 
@@ -29,7 +31,7 @@ Active production incidents follow the organization's incident process, not TRIA
 
 | Capability | Needed for | If unavailable |
 |---|---|---|
-| Create issue in the PGPTOOLS project | L1 and Prod-team outcomes | Provide a manual ticket draft (`jira.draft_provided: true`) |
+| Create issue in the configured project | L1 and Prod-team outcomes | Provide a manual ticket draft (`jira.draft_provided: true`) |
 | Set labels | `triage-x`, `triage-x-<tool>` | Put labels in the draft and note the limitation |
 | Add attachment | Sanitized evidence file | Put a concise sanitized summary in the description and state that attachments are unsupported |
 | Search issues (JQL or equivalent) | Duplicate / related-issue detection | Skip the search; say so in the result |
@@ -55,7 +57,7 @@ Fields:  TODO(owner) — issue type, components, priority mapping
 
 ## 4. Flow
 
-1. **Search** for a related open issue or active incident, when permitted. Suggested query (illustrative): project = PGPTOOLS AND labels = triage-x AND statusCategory != Done AND text ~ "<app>" AND created >= -7d.
+1. **Search** for a related open issue or active incident, when permitted. Suggested query (illustrative): project = <configured-project> AND labels = triage-x AND statusCategory != Done AND text ~ "<app>" AND created >= -7d.
 2. If a likely related issue exists, **suggest linking to it** instead of creating a new one. Do not assume two issues are the same; ask the developer.
 3. **Show the draft** to the developer.
 4. Wait for **explicit confirmation** (for example "yes, create it"). Whether confirmation can ever be skipped is `TODO(owner)`; until decided it is always required.

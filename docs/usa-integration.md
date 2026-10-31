@@ -24,4 +24,4 @@
 
 - Does USA call TRIAGE-X as a skill, a sub-agent, or a tool? `TODO(owner)`
 - Does USA pass prior conversation context, and how is it sanitized? `TODO(owner)`
-- Who owns the PGPTOOLS write permission in an integrated setup? `TODO(owner)`
+- Who owns the Jira write permission in an integrated setup? `TODO(owner)`

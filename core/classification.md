@@ -66,7 +66,7 @@ No Slack.
 ### C. Prod team needed
 Use when evidence supports a **specific** need for production-team validation or action (multi-app blast radius, shared platform component fault, or production impact where L1 lacks access or authority).
 
-1. Draft the PGPTOOLS ticket and the NLH (`nlh-template.md`).
+1. Draft the Jira ticket and the NLH (`nlh-template.md`).
 2. Draft the Slack summary.
 3. After confirmation: create the Jira issue; then, only if it was created, post to Slack.
 4. State explicitly that moving to STRCONTAIN is a manual support decision.

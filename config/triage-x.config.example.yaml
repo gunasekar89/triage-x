@@ -1,0 +1,45 @@
+# TRIAGE-X team configuration (EXAMPLE).
+# Copy to triage-x.config.yaml for your team and fill in your own values.
+# TRIAGE-X is a global tool: nothing here is shared between teams, and no
+# project, board, dashboard or channel is hard-coded in the skill.
+# Never put credentials or tokens in this file; the MCP connections hold them.
+
+team: example-team
+
+mode: shadow                 # shadow = drafts only, no writes | writes = create after developer confirmation
+
+jira:
+  enabled: false             # false = TRIAGE-X only drafts tickets for manual creation
+  mcp_server: <your-jira-mcp>        # name of the Jira MCP your team connected
+  project_key: <YOUR-PROJECT>        # Jira project behind your board or dashboard
+  issue_types:
+    l1: <issue-type>
+    prod_team: <issue-type>
+  required_fields: {}                # e.g. { customfield_<id>: <value> }
+  components: []
+  labels: [triage-x]                 # triage-x-<tool> is always added automatically
+  priority_map:                      # environment x confirmed impact -> priority
+    prod_impact: <priority>
+    prod_no_impact: <priority>
+    stage: <priority>
+    dev: <priority>
+  search_for_duplicates: true        # needs search support in your Jira MCP
+  confirmation_required: true        # whether this can ever be false is TODO(owner)
+
+slack:
+  enabled: false
+  channel_name: "#triage-x-alerts"
+  channel_id: <channel-id>
+
+tools:                               # which read-only connectors your team has
+  github: { enabled: false, connector: <connector> }
+  jenkins: { enabled: false, connector: <connector> }
+  concord: { enabled: false, connector: <connector> }
+  gates: { enabled: false, connector: <connector> }
+  sonarqube: { enabled: false, connector: <connector> }
+  artifactory: { enabled: false, connector: <connector> }
+  docker: { enabled: false, connector: <connector> }
+  kubernetes: { enabled: false, connector: <connector> }
+  cd-orchestration: { enabled: false, platform: aks, connector: <connector> }   # aks | gke | eks
+
+environments: [dev, stage, prod]     # your naming

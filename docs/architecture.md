@@ -20,7 +20,7 @@ flowchart TB
   EV --> CL[Classification<br/>core/classification.md]
   CL --> OC[Output contract<br/>human-readable + triage_result YAML<br/>schemas/triage-result.schema.json]
   CL -->|L1 / Prod team| CF{Developer confirms draft?}
-  CF -->|yes| JI[(Jira MCP<br/>PGPTOOLS create only)]
+  CF -->|yes| JI[(Jira MCP<br/>create only, configured project)]
   JI -->|Prod team, ticket exists| SL[(Slack<br/>#triage-x-alerts)]
   CF -->|no| OC
   JI --> OC

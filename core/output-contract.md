@@ -135,7 +135,7 @@ Stage/Tool:   <stage> · <tool>
 Impact:       <confirmed impact or "unknown">
 Blast radius: <single-app | multi-app | unknown>
 Ask:          <specific validation requested>
-Ticket:       <PGPTOOLS key>
+Ticket:       <Jira key>
 ```
 
 ## Compatibility

@@ -25,7 +25,7 @@ human_readable: |
   Actions taken (confirmed):
     - jira-create — unverified — —
   Proposed manual actions (not performed):
-    1. Check PGPTOOLS for a ticket mentioning TX-20261031-0011 before creating one manually from the draft.
+    1. Check the configured Jira project for a ticket mentioning TX-20261031-0011 before creating one manually from the draft.
   Verify by:        After L1 fixes the pull credential, pods pull 3.1.0 and become Ready.
   Escalate if:      Many namespaces on the cluster show the same unauthorized pulls (prod team).
   Open questions:   none
@@ -93,7 +93,7 @@ triage_result:
     ref: null
     detail: Create call timed out; search by triage id found nothing; not retried
   proposed_manual_actions:
-  - Check PGPTOOLS for a ticket mentioning TX-20261031-0011 before creating one manually from the draft.
+  - Check the configured Jira project for a ticket mentioning TX-20261031-0011 before creating one manually from the draft.
   open_questions: []
   unknowns:
   - Whether other namespaces on <cluster-a> are affected.

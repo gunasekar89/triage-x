@@ -47,6 +47,7 @@ REQUIRED_FILES = [
     "docs/architecture.md", "docs/adding-a-tool.md", "docs/evaluation-and-improvement.md", "docs/usa-integration.md",
     "tests/validate.py", "tests/requirements.txt",
     "examples/inputs/kitt-multi-target.example.yml",
+    "config/triage-x.config.example.yaml",
 ]
 
 CONTEXT_SECTIONS = ["## Role in the lifecycle", "## Context to collect", "## Identifiers and target resolution",

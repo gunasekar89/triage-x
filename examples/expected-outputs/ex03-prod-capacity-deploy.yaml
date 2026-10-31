@@ -25,7 +25,7 @@ human_readable: |
 
   Actions taken (confirmed):
     - jira-search — succeeded — —
-    - jira-create — succeeded — PGPTOOLS-0001
+    - jira-create — succeeded — EXAMPLE-1002
     - slack-post — succeeded — #triage-x-alerts
   Proposed manual actions (not performed):
     1. Do not redeploy or change requests while the production team validates cluster capacity.
@@ -34,7 +34,7 @@ human_readable: |
   Open questions:   none
   Unknowns:         Business impact not confirmed by the developer.; Node pool autoscaling state not visible.
 
-  NLH drafted per core/nlh-template.md and included in PGPTOOLS-0001.
+  NLH drafted per core/nlh-template.md and included in EXAMPLE-1002.
 
   Slack (posted to #triage-x-alerts after confirmation):
     :rotating_light: TRIAGE-X · Prod validation requested
@@ -43,7 +43,7 @@ human_readable: |
     Impact:       unknown
     Blast radius: multi-app
     Ask:          Validate CPU capacity on <cluster-name> and advise on scheduling
-    Ticket:       PGPTOOLS-0001
+    Ticket:       EXAMPLE-1002
 
   STRCONTAIN movement is a manual support decision; TRIAGE-X has not moved this ticket.
 
@@ -54,7 +54,7 @@ human_readable: |
   Root cause:           CPU capacity on the cluster is exhausted, affecting this and 7 other namespaces   [basis: likely]
   Contributing factors: Node pool autoscaling state not visible
   Why not caught earlier: Cluster capacity is outside the developer's visibility
-  Resolution:           Production team validates and restores capacity (PGPTOOLS-0001)
+  Resolution:           Production team validates and restores capacity (EXAMPLE-1002)
   Prevention (manual, for the team to decide):
     1. Prevention to be decided by the production team after their review — suggested owner: TODO(owner)
 triage_result:
@@ -106,10 +106,10 @@ triage_result:
   - action: jira-search
     status: succeeded
     ref: null
-    detail: No open incident or PGPTOOLS issue for this cluster
+    detail: No open incident or related Jira issue for this cluster
   - action: jira-create
     status: succeeded
-    ref: PGPTOOLS-0001
+    ref: EXAMPLE-1002
     detail: Created after confirmation, NLH included (synthetic key)
   - action: slack-post
     status: succeeded
@@ -124,7 +124,7 @@ triage_result:
   jira:
     expected: true
     created: true
-    key: PGPTOOLS-0001
+    key: EXAMPLE-1002
     draft_provided: true
   slack:
     expected: true
@@ -141,6 +141,6 @@ triage_result:
     contributing_factors:
     - Node pool autoscaling state not visible
     why_not_caught_earlier: Cluster capacity is outside the developer's visibility
-    resolution: Production team validates and restores capacity (PGPTOOLS-0001)
+    resolution: Production team validates and restores capacity (EXAMPLE-1002)
     prevention:
     - 'Prevention to be decided by the production team after their review — suggested owner: TODO(owner)'

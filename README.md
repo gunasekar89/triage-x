@@ -32,8 +32,8 @@ Today application teams raise delivery issues to L1 support engineers, who then 
 5. It asks **"what changed?"**: commits, merged PRs, KITT or deployment config, image tags, dependencies.
 6. It matches the evidence against documented failure patterns and decides:
    - **Self-fix**: steps you can take, with how to verify them;
-   - **L1 issue**: a PGPTOOLS Jira ticket (after you confirm the draft);
-   - **Prod team needed**: a PGPTOOLS ticket, an NLH, and a Slack notification (after you confirm).
+   - **L1 issue**: a Jira ticket in your team's configured project (after you confirm the draft);
+   - **Prod team needed**: a Jira ticket, an NLH, and a Slack notification (after you confirm).
 7. It returns a **standard result** with both a readable summary and a machine-readable block, plus a short **self-service RCA** (problem, trigger, root cause, why it was not caught earlier, prevention) for every completed triage.
 8. The support team decides manually whether to move a ticket to STRCONTAIN. **TRIAGE-X never does.**
 
@@ -100,7 +100,7 @@ TRIAGE-X investigates **read-only**. It never changes clusters, workloads, pipel
 
 The only runtime writes, each **after the developer confirms the draft**:
 
-1. Create a PGPTOOLS Jira issue through the existing Jira MCP (`integrations/jira-mcp.md`).
+1. Create a Jira issue in the team's configured project through their Jira MCP (`integrations/jira-mcp.md`, `config/triage-x.config.example.yaml`).
 2. Post a Prod-team notification to `#triage-x-alerts` (`integrations/slack.md`).
 
 Whether confirmation can ever be skipped is `TODO(owner)`. Prompt instructions are **not** a security boundary: permissions must be enforced by the integrations and platform configuration (`core/security-and-privacy.md`).
@@ -128,6 +128,10 @@ It does **not** run behavioral evaluation (asking the model to triage the cases 
 
 To install the skill, load `SKILL.md` plus the `core/`, `tools/` and `integrations/` files into the skill platform. The exact packaging is `TODO(owner)`.
 
+### Team configuration
+
+TRIAGE-X is a global tool. Each team copies `config/triage-x.config.example.yaml`, then fills in its own Jira MCP, Jira project (or dashboard), issue types, Slack channel and tool connectors. With `jira.enabled: false`, TRIAGE-X only drafts tickets for the developer to raise by hand.
+
 ## 9. Repository layout
 
 ```text
@@ -136,6 +140,7 @@ core/                    Router, stages, classification, contract, evidence, sec
 schemas/                 JSON Schema for triage_result
 tools/<tool>/            context.md, checks.md, runbooks.md per tool (+ _template)
 integrations/            Jira MCP and Slack contracts
+config/                  Per-team config example (ticket destination, Jira MCP, Slack, connectors)
 examples/inputs/         Synthetic developer inputs (incl. KITT-style sample)
 examples/expected-outputs/  Expected triage results (schema-validated)
 tests/cases/             Evaluation cases (per tool + cross-cutting)
@@ -154,7 +159,7 @@ docs/                    Architecture, adding a tool, evaluation, USA integratio
 ## 11. Open decisions (`TODO(owner)`)
 
 - Skill platform header format, size limits and tool bindings for `SKILL.md`.
-- PGPTOOLS project mapping, issue types, required fields, components, priority mapping.
+- Each team's ticket destination (Jira project or dashboard), issue types, required fields, components, priority mapping, set in their config file.
 - Slack channel ID for `#triage-x-alerts`.
 - Confirmation of default ownership heuristics.
 - Environment naming conventions.
