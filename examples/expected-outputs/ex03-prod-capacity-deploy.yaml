@@ -1,0 +1,122 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/ex03-prod-capacity-deploy.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0003
+  Summary:          The example-app prod deploy is stuck because the cluster has no CPU capacity, and 7 other namespaces show the same scheduling failure.
+  Lifecycle stage:  Deploy   (reported at: Orchestrate & deliver)
+  Reported by:      Concord / deploy task
+  Likely failing:   WCNP cluster capacity (Kubernetes scheduling)
+  Category:         capacity-quota
+  Target:           example-app · prod · <cluster-name> · example-app-prod   (source: single KITT prod entry + Concord log)
+  Blast radius:     multiple apps
+
+  Evidence
+    [Fact]        kubernetes — Pod example-app-7d9f-abcde Pending; FailedScheduling 0/12 nodes available: 12 Insufficient cpu
+    [Fact]        kubernetes — Same FailedScheduling Insufficient cpu events in 7 other namespaces in the last 30 minutes
+    [Fact]        github — KITT diff shows no CPU request change in this release
+    [Fact]        concord — Deploy targeted cluster <cluster-name>, namespace example-app-prod
+
+  What changed:     no change evidence available
+  Likely cause:     Cluster CPU capacity is exhausted; the application's requests did not change.
+  Confidence:       High — Scheduling events show CPU shortage in this and 7 other namespaces; no request change in release
+
+  Classification:   Prod team needed
+  Status:           complete
+
+  Actions taken (confirmed):
+    - jira-search — succeeded — —
+    - jira-create — succeeded — PGPTOOLS-0001
+    - slack-post — succeeded — #triage-x-alerts
+  Proposed manual actions (not performed):
+    1. Do not redeploy or change requests while the production team validates cluster capacity.
+  Verify by:        Pods schedule and the rollout completes after the production team acts.
+  Escalate if:      Not applicable; already escalated to the production team.
+  Open questions:   none
+  Unknowns:         Business impact not confirmed by the developer.; Node pool autoscaling state not visible.
+
+  NLH drafted per core/nlh-template.md and included in PGPTOOLS-0001.
+
+  Slack (posted to #triage-x-alerts after confirmation):
+    :rotating_light: TRIAGE-X · Prod validation requested
+    App/Env:      example-app · prod
+    Stage/Tool:   Deploy · wcnp
+    Impact:       unknown
+    Blast radius: multi-app
+    Ask:          Validate CPU capacity on <cluster-name> and advise on scheduling
+    Ticket:       PGPTOOLS-0001
+
+  STRCONTAIN movement is a manual support decision; TRIAGE-X has not moved this ticket.
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0003
+  request_ref: example-app prod deploy, Concord process <process-id>
+  lifecycle_stage:
+    first_failing: deploy
+    reported_at: orchestrate-deliver
+  reported_tool: concord
+  primary_tool: wcnp
+  secondary_tools:
+  - kubernetes
+  - concord
+  - github
+  failure_category: capacity-quota
+  target:
+    app: example-app
+    environment: prod
+    cluster: <cluster-name>
+    namespace: example-app-prod
+    source: single KITT prod entry + Concord log
+    confirmed: true
+  blast_radius: multi-app
+  classification: prod-team
+  status: complete
+  confidence:
+    level: high
+    reason: Scheduling events show CPU shortage in this and 7 other namespaces; no request change in release
+  evidence:
+  - kind: fact
+    source: kubernetes
+    ref: example-app-prod
+    summary: 'Pod example-app-7d9f-abcde Pending; FailedScheduling 0/12 nodes available: 12 Insufficient cpu'
+  - kind: fact
+    source: kubernetes
+    ref: <cluster-name>
+    summary: Same FailedScheduling Insufficient cpu events in 7 other namespaces in the last 30 minutes
+  - kind: fact
+    source: github
+    ref: KITT file
+    summary: KITT diff shows no CPU request change in this release
+  - kind: fact
+    source: concord
+    ref: <process-id>
+    summary: Deploy targeted cluster <cluster-name>, namespace example-app-prod
+  change_evidence: []
+  actions_taken:
+  - action: jira-search
+    status: succeeded
+    ref: null
+    detail: No open incident or PGPTOOLS issue for this cluster
+  - action: jira-create
+    status: succeeded
+    ref: PGPTOOLS-0001
+    detail: Created after confirmation, NLH included (synthetic key)
+  - action: slack-post
+    status: succeeded
+    ref: '#triage-x-alerts'
+    detail: Posted after Jira creation and confirmation
+  proposed_manual_actions:
+  - Do not redeploy or change requests while the production team validates cluster capacity.
+  open_questions: []
+  unknowns:
+  - Business impact not confirmed by the developer.
+  - Node pool autoscaling state not visible.
+  jira:
+    expected: true
+    created: true
+    key: PGPTOOLS-0001
+    draft_provided: true
+  slack:
+    expected: true
+    posted: true
+    draft_provided: true
+  strcontain_transition: false

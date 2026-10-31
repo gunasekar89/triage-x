@@ -1,0 +1,80 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/gates-release-gate-blocked.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0008
+  Summary:          The release gate correctly blocked 2.8.0 because a newly bumped dependency has a critical vulnerability.
+  Lifecycle stage:  Quality & security   (reported at: Quality & security)
+  Reported by:      Gates / release gate
+  Likely failing:   Release gate policy (correct block)
+  Category:         policy-gate
+  Target:           example-app · stage · — · —   (source: gate evaluation)
+  Blast radius:     single app
+
+  Evidence
+    [Fact]        gates — FAILED: critical vulnerabilities 1 > 0 in example-json-parser 1.2.0
+
+  What changed:     example-json-parser bumped 1.1.4 to 1.2.0
+  Likely cause:     Dependency bump introduced a critical vulnerability.
+  Confidence:       High — Gate lists the vulnerable component introduced by a dependency bump
+
+  Classification:   Self-fix
+  Status:           complete
+
+  Actions taken (confirmed):
+    - none
+  Proposed manual actions (not performed):
+    1. Move example-json-parser to a fixed version (or back to 1.1.4 if acceptable).
+    2. Rebuild and re-run the release gate.
+    3. If no fix exists, follow the exception process (TODO(owner)).
+  Verify by:        Gate evaluation passes for the next build.
+  Escalate if:      The finding is believed to be a false positive (L1 review).
+  Open questions:   none
+  Unknowns:         none
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0008
+  request_ref: example-app 2.8.0 release gate
+  lifecycle_stage:
+    first_failing: quality-security
+    reported_at: quality-security
+  reported_tool: gates
+  primary_tool: gates
+  secondary_tools: []
+  failure_category: policy-gate
+  target:
+    app: example-app
+    environment: stage
+    cluster: null
+    namespace: null
+    source: gate evaluation
+  blast_radius: single-app
+  classification: self-fix
+  status: complete
+  confidence:
+    level: high
+    reason: Gate lists the vulnerable component introduced by a dependency bump
+  evidence:
+  - kind: fact
+    source: gates
+    ref: <gate-eval-id>
+    summary: 'FAILED: critical vulnerabilities 1 > 0 in example-json-parser 1.2.0'
+  change_evidence:
+  - source: github
+    ref: 2.7.0..2.8.0
+    summary: example-json-parser bumped 1.1.4 to 1.2.0
+    change_type: dependency
+  actions_taken: []
+  proposed_manual_actions:
+  - Move example-json-parser to a fixed version (or back to 1.1.4 if acceptable).
+  - Rebuild and re-run the release gate.
+  - If no fix exists, follow the exception process (TODO(owner)).
+  open_questions: []
+  unknowns: []
+  jira:
+    expected: false
+    created: false
+    key: null
+    draft_provided: false
+  slack:
+    expected: false
+    posted: false

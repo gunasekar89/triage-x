@@ -1,0 +1,32 @@
+# ILLUSTRATIVE ONLY. This is a KITT-style sample used by TRIAGE-X examples.
+# It is NOT the official KITT schema. Real field names are TODO(owner).
+# All values are synthetic placeholders.
+owner:
+  group: example-team
+profiles:
+  - example-java-service
+build:
+  docker:
+    image: example-app
+deploy:
+  namespace: example-app
+  stages:
+    - name: stage
+      target:
+        cluster_id:
+          - <cluster-a>
+      namespace: example-app-stage
+    - name: prod
+      target:
+        cluster_id:
+          - <cluster-b>
+          - <cluster-c>
+      namespace: example-app-prod
+  helm:
+    values:
+      min:
+        cpu: 500m
+        memory: 512Mi
+      max:
+        cpu: "1"
+        memory: 1Gi

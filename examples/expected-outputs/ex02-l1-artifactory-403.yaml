@@ -1,0 +1,102 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/ex02-l1-artifactory-403.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0002
+  Summary:          Build #77 cannot resolve com.example:example-lib:2.3.1 because the artifact repository returns 403 to this pipeline.
+  Lifecycle stage:  Package & publish   (reported at: CI build)
+  Reported by:      Jenkins / stage 'Build'
+  Likely failing:   Artifactory repository permission for the pipeline credential
+  Category:         credentials-access
+  Target:           example-app · dev · — · —   (source: jenkins-console)
+  Blast radius:     single app
+
+  Evidence
+    [Fact]        jenkins — Could not transfer artifact com.example:example-lib:jar:2.3.1 from libs-release: status code 403 Forbidden
+    [Fact]        artifactory — com.example:example-lib:2.3.1 exists in libs-release; resolved by other consumers in last 24 h
+    [Hypothesis]  The pipeline credential lacks read permission on libs-release — Repository permission review by L1
+
+  What changed:     Version 2.3.1 is served from a different repository path than 2.3.0 (no version bump in this build)
+  Likely cause:     The pipeline's credential lacks read access to the repository serving 2.3.1.
+  Confidence:       High — HTTP 403 for an artifact that exists and resolves for other consumers
+
+  Classification:   L1 issue
+  Status:           complete
+
+  Actions taken (confirmed):
+    - jira-search — succeeded — —
+    - jira-create — succeeded — PGPTOOLS-0000
+  Proposed manual actions (not performed):
+    1. Wait for L1 to grant or correct repository read access; do not change credentials yourself.
+  Verify by:        After L1 confirms access, the next build resolves the dependency.
+  Escalate if:      Many pipelines receive 403 from the same repository (possible shared credential or platform issue).
+  Open questions:   none
+  Unknowns:         Exact permission target configuration (not visible to TRIAGE-X).
+
+  Jira draft (shown and confirmed):
+    Title:  [TRIAGE-X][artifactory] 403 resolving com.example:example-lib:2.3.1 — example-app (dev)
+    Labels: triage-x, triage-x-artifactory
+    Slack:  not applicable (L1)
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0002
+  request_ref: 'example-app build #77 dependency com.example:example-lib:2.3.1'
+  lifecycle_stage:
+    first_failing: package-publish
+    reported_at: ci-build
+  reported_tool: jenkins
+  primary_tool: artifactory
+  secondary_tools:
+  - jenkins
+  failure_category: credentials-access
+  target:
+    app: example-app
+    environment: dev
+    cluster: null
+    namespace: null
+    source: jenkins-console
+  blast_radius: single-app
+  classification: l1
+  status: complete
+  confidence:
+    level: high
+    reason: HTTP 403 for an artifact that exists and resolves for other consumers
+  evidence:
+  - kind: fact
+    source: jenkins
+    ref: 'example-app #77'
+    summary: 'Could not transfer artifact com.example:example-lib:jar:2.3.1 from libs-release: status code 403 Forbidden'
+  - kind: fact
+    source: artifactory
+    ref: libs-release
+    summary: com.example:example-lib:2.3.1 exists in libs-release; resolved by other consumers in last 24 h
+  - kind: hypothesis
+    source: triage-x
+    summary: The pipeline credential lacks read permission on libs-release
+    confirm_by: Repository permission review by L1
+  change_evidence:
+  - source: github
+    ref: build file
+    summary: Version 2.3.1 is served from a different repository path than 2.3.0 (no version bump in this build)
+    change_type: dependency
+  actions_taken:
+  - action: jira-search
+    status: succeeded
+    ref: null
+    detail: No related open PGPTOOLS issue found
+  - action: jira-create
+    status: succeeded
+    ref: PGPTOOLS-0000
+    detail: Created after developer confirmed the draft (synthetic key)
+  proposed_manual_actions:
+  - Wait for L1 to grant or correct repository read access; do not change credentials yourself.
+  open_questions: []
+  unknowns:
+  - Exact permission target configuration (not visible to TRIAGE-X).
+  jira:
+    expected: true
+    created: true
+    key: PGPTOOLS-0000
+    draft_provided: true
+  slack:
+    expected: false
+    posted: false

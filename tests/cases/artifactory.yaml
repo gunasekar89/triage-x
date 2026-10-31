@@ -1,0 +1,106 @@
+# Artifactory
+# Synthetic evaluation cases. Format: docs/evaluation-and-improvement.md
+- id: AF-E01
+  title: 403 on existing artifact
+  input: Pipeline can't pull com.example:example-lib:2.3.1.
+  evidence:
+  - source: jenkins
+    summary: 403 Forbidden
+  - source: artifactory
+    summary: artifact exists; others resolve it
+  expected:
+    lifecycle_stage:
+      first_failing: package-publish
+      reported_at: ci-build
+    reported_tool: jenkins
+    primary_tool: artifactory
+    secondary_tools:
+    - jenkins
+    failure_category: credentials-access
+    classification: l1
+    status: complete
+    question_expected: false
+    jira_expected: true
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Jira draft shown and created only after developer confirmation
+  - Labels triage-x, triage-x-artifactory
+  rationale: Worked example 2.
+- id: AF-E02
+  title: Version not published
+  input: Build can't find example-lib 2.4.0.
+  evidence:
+  - source: jenkins
+    summary: Could not find artifact com.example:example-lib:2.4.0
+  - source: artifactory
+    summary: 2.4.0 does not exist
+  expected:
+    lifecycle_stage:
+      first_failing: package-publish
+      reported_at: ci-build
+    reported_tool: jenkins
+    primary_tool: artifactory
+    secondary_tools:
+    - jenkins
+    failure_category: dependency
+    classification: self-fix
+    status: complete
+    question_expected: false
+    jira_expected: false
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Fixes labelled as manual actions, not performed
+  rationale: Wrong version chosen by developer.
+- id: AF-E03
+  title: Redeploy not allowed
+  input: Publish fails with 409.
+  evidence:
+  - source: jenkins
+    summary: '409 Conflict: Redeploy not allowed'
+  expected:
+    lifecycle_stage:
+      first_failing: package-publish
+      reported_at: package-publish
+    reported_tool: jenkins
+    primary_tool: artifactory
+    secondary_tools:
+    - jenkins
+    failure_category: configuration
+    classification: self-fix
+    status: complete
+    question_expected: false
+    jira_expected: false
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Fixes labelled as manual actions, not performed
+  rationale: Version must be bumped.
+- id: AF-E04
+  title: Repository 502 recurring
+  input: Builds fail with 502 again after a retry.
+  evidence:
+  - source: jenkins
+    summary: 502 Bad Gateway (twice, 20 min apart)
+  - source: artifactory
+    summary: no visibility of other consumers
+  expected:
+    lifecycle_stage:
+      first_failing: package-publish
+      reported_at: ci-build
+    reported_tool: jenkins
+    primary_tool: artifactory
+    secondary_tools:
+    - jenkins
+    failure_category: transient-flaky
+    classification: l1
+    status: complete
+    question_expected: false
+    jira_expected: true
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Jira draft shown and created only after developer confirmation
+  - Both occurrences included
+  rationale: Recurring transient after one retry goes to L1.

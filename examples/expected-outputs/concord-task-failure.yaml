@@ -1,0 +1,80 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/concord-task-failure.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0007
+  Summary:          The Concord flow fails immediately because a renamed variable is still referenced in the deploy step.
+  Lifecycle stage:  Orchestrate & deliver   (reported at: Orchestrate & deliver)
+  Reported by:      Concord / flow start
+  Likely failing:   Concord flow definition
+  Category:         configuration
+  Target:           example-app · — · — · —   (source: concord-log)
+  Blast radius:     single app
+
+  Evidence
+    [Fact]        concord — Process FAILED after 4 s: Variable 'deployEnv' not found
+
+  What changed:     deployEnv renamed to targetEnv in arguments but not in deploy step
+  Likely cause:     Incomplete rename of deployEnv to targetEnv.
+  Confidence:       High — Error names a variable renamed in the last flow change
+
+  Classification:   Self-fix
+  Status:           complete
+
+  Actions taken (confirmed):
+    - none
+  Proposed manual actions (not performed):
+    1. Rename the remaining deployEnv reference in the deploy step to targetEnv.
+    2. Merge through a PR and start a new process.
+  Verify by:        A new process passes the deploy step's variable resolution.
+  Escalate if:      The error persists after the rename is fixed.
+  Open questions:   none
+  Unknowns:         Environment of the failed process not printed before failure.
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0007
+  request_ref: Concord process <process-id>
+  lifecycle_stage:
+    first_failing: orchestrate-deliver
+    reported_at: orchestrate-deliver
+  reported_tool: concord
+  primary_tool: concord
+  secondary_tools:
+  - github
+  failure_category: configuration
+  target:
+    app: example-app
+    environment: null
+    cluster: null
+    namespace: null
+    source: concord-log
+  blast_radius: single-app
+  classification: self-fix
+  status: complete
+  confidence:
+    level: high
+    reason: Error names a variable renamed in the last flow change
+  evidence:
+  - kind: fact
+    source: concord
+    ref: <process-id>
+    summary: 'Process FAILED after 4 s: Variable ''deployEnv'' not found'
+  change_evidence:
+  - source: github
+    ref: last merged PR
+    summary: deployEnv renamed to targetEnv in arguments but not in deploy step
+    change_type: pipeline-definition
+  actions_taken: []
+  proposed_manual_actions:
+  - Rename the remaining deployEnv reference in the deploy step to targetEnv.
+  - Merge through a PR and start a new process.
+  open_questions: []
+  unknowns:
+  - Environment of the failed process not printed before failure.
+  jira:
+    expected: false
+    created: false
+    key: null
+    draft_provided: false
+  slack:
+    expected: false
+    posted: false

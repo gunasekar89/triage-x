@@ -1,0 +1,105 @@
+# Docker
+# Synthetic evaluation cases. Format: docs/evaluation-and-improvement.md
+- id: DK-E01
+  title: Dockerfile COPY fails
+  input: Image build fails at COPY.
+  evidence:
+  - source: jenkins
+    summary: 'COPY failed: file not found in build context: target/app.jar'
+  expected:
+    lifecycle_stage:
+      first_failing: ci-build
+      reported_at: ci-build
+    reported_tool: jenkins
+    primary_tool: docker
+    secondary_tools:
+    - jenkins
+    failure_category: code-change
+    classification: self-fix
+    status: complete
+    question_expected: false
+    jira_expected: false
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Fixes labelled as manual actions, not performed
+  rationale: Build context issue in the developer's Dockerfile.
+- id: DK-E02
+  title: Base image tag missing
+  input: Image build fails at FROM.
+  evidence:
+  - source: jenkins
+    summary: 'java-runtime:17.0.3: not found'
+  - source: artifactory
+    summary: 17.0.3 missing
+  expected:
+    lifecycle_stage:
+      first_failing: ci-build
+      reported_at: ci-build
+    reported_tool: jenkins
+    primary_tool: docker
+    secondary_tools:
+    - jenkins
+    - artifactory
+    failure_category: dependency
+    classification: self-fix
+    status: complete
+    question_expected: false
+    jira_expected: false
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Fixes labelled as manual actions, not performed
+  rationale: Developer referenced a non-existent tag.
+- id: DK-E03
+  title: Push denied
+  input: docker push fails in publish stage.
+  evidence:
+  - source: jenkins
+    summary: 'denied: requested access to the resource is denied'
+  - source: github
+    summary: push path unchanged
+  expected:
+    lifecycle_stage:
+      first_failing: package-publish
+      reported_at: package-publish
+    reported_tool: jenkins
+    primary_tool: docker
+    secondary_tools:
+    - jenkins
+    failure_category: credentials-access
+    classification: l1
+    status: complete
+    question_expected: false
+    jira_expected: true
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Jira draft shown and created only after developer confirmation
+  rationale: Push permission must be granted.
+- id: DK-E04
+  title: Builder out of disk
+  input: 'Image build killed: no space left on device.'
+  evidence:
+  - source: jenkins
+    summary: no space left on device
+  - source: jenkins
+    summary: context size unchanged
+  expected:
+    lifecycle_stage:
+      first_failing: ci-build
+      reported_at: ci-build
+    reported_tool: jenkins
+    primary_tool: docker
+    secondary_tools:
+    - jenkins
+    failure_category: capacity-quota
+    classification: l1
+    status: complete
+    question_expected: false
+    jira_expected: true
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Jira draft shown and created only after developer confirmation
+  rationale: Builder capacity, not the image, is the problem.

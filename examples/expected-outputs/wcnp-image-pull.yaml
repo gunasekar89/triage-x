@@ -1,0 +1,97 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/wcnp-image-pull.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0011
+  Summary:          The stage deploy cannot pull an existing image because the cluster's registry credential is rejected.
+  Lifecycle stage:  Package & publish   (reported at: Deploy)
+  Reported by:      WCNP / deploy (pod events)
+  Likely failing:   Registry pull credential for the namespace
+  Category:         credentials-access
+  Target:           example-app · stage · <cluster-a> · example-app-stage   (source: single KITT stage entry + Concord log)
+  Blast radius:     unknown
+
+  Evidence
+    [Fact]        kubernetes — Failed to pull image <registry-host>/example-app:3.1.0: unauthorized: authentication required
+    [Fact]        artifactory — Tag 3.1.0 exists
+    [Hypothesis]  Namespace pull secret was not updated after yesterday's rotation — L1 checks the pull secret's registry credential
+
+  What changed:     Pull-secret rotation announced yesterday (synthetic)
+  Likely cause:     Pull secret likely not updated after credential rotation (hypothesis).
+  Confidence:       Medium — Unauthorized pull of an existing tag; pull-secret rotation suspected but not verified
+
+  Classification:   L1 issue
+  Status:           complete
+
+  Actions taken (confirmed):
+    - jira-create — unverified — —
+  Proposed manual actions (not performed):
+    1. Check PGPTOOLS for a ticket mentioning TX-20261031-0011 before creating one manually from the draft.
+  Verify by:        After L1 fixes the pull credential, pods pull 3.1.0 and become Ready.
+  Escalate if:      Many namespaces on the cluster show the same unauthorized pulls (prod team).
+  Open questions:   none
+  Unknowns:         Whether other namespaces on <cluster-a> are affected.; Whether the Jira issue was created.
+
+  Jira write result is unverified; TRIAGE-X did not retry. Manual draft provided.
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0011
+  request_ref: example-app stage deploy ImagePullBackOff
+  lifecycle_stage:
+    first_failing: package-publish
+    reported_at: deploy
+  reported_tool: wcnp
+  primary_tool: artifactory
+  secondary_tools:
+  - wcnp
+  - kubernetes
+  failure_category: credentials-access
+  target:
+    app: example-app
+    environment: stage
+    cluster: <cluster-a>
+    namespace: example-app-stage
+    source: single KITT stage entry + Concord log
+    confirmed: true
+  blast_radius: unknown
+  classification: l1
+  status: complete
+  confidence:
+    level: medium
+    reason: Unauthorized pull of an existing tag; pull-secret rotation suspected but not verified
+  evidence:
+  - kind: fact
+    source: kubernetes
+    ref: example-app-stage
+    summary: 'Failed to pull image <registry-host>/example-app:3.1.0: unauthorized: authentication required'
+  - kind: fact
+    source: artifactory
+    ref: null
+    summary: Tag 3.1.0 exists
+  - kind: hypothesis
+    source: triage-x
+    summary: Namespace pull secret was not updated after yesterday's rotation
+    confirm_by: L1 checks the pull secret's registry credential
+  change_evidence:
+  - source: platform-notice
+    ref: null
+    summary: Pull-secret rotation announced yesterday (synthetic)
+    change_type: credentials
+  actions_taken:
+  - action: jira-create
+    status: unverified
+    ref: null
+    detail: Create call timed out; search by triage id found nothing; not retried
+  proposed_manual_actions:
+  - Check PGPTOOLS for a ticket mentioning TX-20261031-0011 before creating one manually from the draft.
+  open_questions: []
+  unknowns:
+  - Whether other namespaces on <cluster-a> are affected.
+  - Whether the Jira issue was created.
+  jira:
+    expected: true
+    created: false
+    key: null
+    draft_provided: true
+  slack:
+    expected: false
+    posted: false

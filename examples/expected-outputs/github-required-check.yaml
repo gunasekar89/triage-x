@@ -1,0 +1,84 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/github-required-check.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0005
+  Summary:          PR #57 is blocked because its Jenkins build fails to compile after a method rename.
+  Lifecycle stage:  CI build   (reported at: Source & change)
+  Reported by:      GitHub / required check ci/jenkins/build
+  Likely failing:   Jenkins compile step (code change)
+  Category:         code-change
+  Target:           example-app · dev · — · —   (source: PR checks)
+  Blast radius:     single app
+
+  Evidence
+    [Fact]        github — Required check ci/jenkins/build conclusion failure; PR mergeable_state blocked
+    [Fact]        jenkins — OrderMapper.java:[42,17] cannot find symbol: method toDto()
+
+  What changed:     toDto() renamed to toResponse() in Order.java
+  Likely cause:     OrderMapper still calls the old method name toDto().
+  Confidence:       High — Compiler error references a method renamed in the PR
+
+  Classification:   Self-fix
+  Status:           complete
+
+  Actions taken (confirmed):
+    - none
+  Proposed manual actions (not performed):
+    1. Update OrderMapper.java to call toResponse().
+    2. Build locally, push to the PR branch.
+  Verify by:        Required check turns green and the PR becomes mergeable.
+  Escalate if:      The build passes locally but still fails in CI with the same error.
+  Open questions:   none
+  Unknowns:         none
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0005
+  request_ref: example-org/example-app#57
+  lifecycle_stage:
+    first_failing: ci-build
+    reported_at: source-change
+  reported_tool: github
+  primary_tool: jenkins
+  secondary_tools:
+  - github
+  failure_category: code-change
+  target:
+    app: example-app
+    environment: dev
+    cluster: null
+    namespace: null
+    source: PR checks
+  blast_radius: single-app
+  classification: self-fix
+  status: complete
+  confidence:
+    level: high
+    reason: Compiler error references a method renamed in the PR
+  evidence:
+  - kind: fact
+    source: github
+    ref: 'PR #57'
+    summary: Required check ci/jenkins/build conclusion failure; PR mergeable_state blocked
+  - kind: fact
+    source: jenkins
+    ref: 'example-app/PR-57 #3'
+    summary: 'OrderMapper.java:[42,17] cannot find symbol: method toDto()'
+  change_evidence:
+  - source: github
+    ref: 'PR #57'
+    summary: toDto() renamed to toResponse() in Order.java
+    change_type: code
+  actions_taken: []
+  proposed_manual_actions:
+  - Update OrderMapper.java to call toResponse().
+  - Build locally, push to the PR branch.
+  open_questions: []
+  unknowns: []
+  jira:
+    expected: false
+    created: false
+    key: null
+    draft_provided: false
+  slack:
+    expected: false
+    posted: false

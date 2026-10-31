@@ -1,0 +1,85 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/docker-build-base-image.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0009
+  Summary:          The image build fails because the Dockerfile references a base image tag that does not exist.
+  Lifecycle stage:  CI build   (reported at: CI build)
+  Reported by:      Jenkins / image build step
+  Likely failing:   Docker base image reference
+  Category:         dependency
+  Target:           example-app · dev · — · —   (source: jenkins-console)
+  Blast radius:     single app
+
+  Evidence
+    [Fact]        jenkins — failed to solve: <registry-host>/base/java-runtime:17.0.3: not found
+    [Fact]        artifactory — Tags 17.0.1, 17.0.2, 17.0.4 exist; 17.0.3 does not
+
+  What changed:     FROM changed java-runtime 17.0.2 to 17.0.3
+  Likely cause:     Base image tag 17.0.3 was never published.
+  Confidence:       High — Tag referenced in FROM does not exist; neighbouring tags do
+
+  Classification:   Self-fix
+  Status:           complete
+
+  Actions taken (confirmed):
+    - none
+  Proposed manual actions (not performed):
+    1. Change FROM to an existing approved tag (e.g. 17.0.4).
+    2. Rebuild locally, then push.
+  Verify by:        Image build passes the FROM step.
+  Escalate if:      The chosen tag exists but pull is denied (L1, access).
+  Open questions:   none
+  Unknowns:         none
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0009
+  request_ref: example-app image build
+  lifecycle_stage:
+    first_failing: ci-build
+    reported_at: ci-build
+  reported_tool: jenkins
+  primary_tool: docker
+  secondary_tools:
+  - jenkins
+  - artifactory
+  failure_category: dependency
+  target:
+    app: example-app
+    environment: dev
+    cluster: null
+    namespace: null
+    source: jenkins-console
+  blast_radius: single-app
+  classification: self-fix
+  status: complete
+  confidence:
+    level: high
+    reason: Tag referenced in FROM does not exist; neighbouring tags do
+  evidence:
+  - kind: fact
+    source: jenkins
+    ref: null
+    summary: 'failed to solve: <registry-host>/base/java-runtime:17.0.3: not found'
+  - kind: fact
+    source: artifactory
+    ref: null
+    summary: Tags 17.0.1, 17.0.2, 17.0.4 exist; 17.0.3 does not
+  change_evidence:
+  - source: github
+    ref: last commit
+    summary: FROM changed java-runtime 17.0.2 to 17.0.3
+    change_type: base-image
+  actions_taken: []
+  proposed_manual_actions:
+  - Change FROM to an existing approved tag (e.g. 17.0.4).
+  - Rebuild locally, then push.
+  open_questions: []
+  unknowns: []
+  jira:
+    expected: false
+    created: false
+    key: null
+    draft_provided: false
+  slack:
+    expected: false
+    posted: false

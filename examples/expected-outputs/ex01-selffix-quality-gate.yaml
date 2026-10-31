@@ -1,0 +1,87 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/ex01-selffix-quality-gate.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0001
+  Summary:          The SonarQube quality gate correctly blocked build #142 because coverage on new code is 61.2%, below the 80% threshold.
+  Lifecycle stage:  Quality & security   (reported at: CI build)
+  Reported by:      Jenkins / stage 'Quality Gate'
+  Likely failing:   SonarQube gate condition (policy, not a tool fault)
+  Category:         policy-gate
+  Target:           example-app · dev · — · —   (source: jenkins-console)
+  Blast radius:     single app
+
+  Evidence
+    [Fact]        jenkins — Quality gate status ERROR in stage 'Quality Gate'
+    [Fact]        sonarqube — Condition new_coverage LT 80.0, actual 61.2 (coverage on new code below threshold)
+
+  What changed:     OrderExportService added without tests
+  Likely cause:     New code was added without tests, so coverage on new code fell below the gate threshold.
+  Confidence:       High — Gate condition reported directly by SonarQube
+
+  Classification:   Self-fix
+  Status:           complete
+
+  Actions taken (confirmed):
+    - none
+  Proposed manual actions (not performed):
+    1. Add unit tests covering OrderExportService and other new code.
+    2. Run the tests and coverage locally.
+    3. Push the change and let CI re-run the analysis and quality gate.
+  Verify by:        Next build's Quality Gate stage passes and SonarQube gate status is OK.
+  Escalate if:      Coverage stays at 0% or unchanged after tests are added (possible coverage import issue, SQ-05).
+  Open questions:   none
+  Unknowns:         Environment inferred as dev from the CI context; not stated by the developer.
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0001
+  request_ref: 'example-app build #142 (Quality Gate)'
+  lifecycle_stage:
+    first_failing: quality-security
+    reported_at: ci-build
+  reported_tool: jenkins
+  primary_tool: sonarqube
+  secondary_tools:
+  - jenkins
+  failure_category: policy-gate
+  target:
+    app: example-app
+    environment: dev
+    cluster: null
+    namespace: null
+    source: jenkins-console
+  blast_radius: single-app
+  classification: self-fix
+  status: complete
+  confidence:
+    level: high
+    reason: Gate condition reported directly by SonarQube
+  evidence:
+  - kind: fact
+    source: jenkins
+    ref: 'example-app #142'
+    summary: Quality gate status ERROR in stage 'Quality Gate'
+  - kind: fact
+    source: sonarqube
+    ref: project example-app
+    summary: Condition new_coverage LT 80.0, actual 61.2 (coverage on new code below threshold)
+  change_evidence:
+  - source: github
+    ref: 3 commits since last green build
+    summary: OrderExportService added without tests
+    change_type: code
+  actions_taken: []
+  proposed_manual_actions:
+  - Add unit tests covering OrderExportService and other new code.
+  - Run the tests and coverage locally.
+  - Push the change and let CI re-run the analysis and quality gate.
+  open_questions: []
+  unknowns:
+  - Environment inferred as dev from the CI context; not stated by the developer.
+  jira:
+    expected: false
+    created: false
+    key: null
+    draft_provided: false
+  slack:
+    expected: false
+    posted: false

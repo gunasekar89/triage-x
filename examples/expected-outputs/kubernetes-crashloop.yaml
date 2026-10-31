@@ -1,0 +1,86 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/kubernetes-crashloop.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0010
+  Summary:          example-app crashes on startup in dev because a required environment variable was removed in today's release.
+  Lifecycle stage:  Run & operate   (reported at: Run & operate)
+  Reported by:      Kubernetes / pod status
+  Likely failing:   Application configuration (KITT env vars)
+  Category:         configuration
+  Target:           example-app · dev · <cluster-d> · example-app-dev   (source: single KITT dev entry + Concord log)
+  Blast radius:     single app
+
+  Evidence
+    [Fact]        kubernetes — CrashLoopBackOff, restarts 9, exit code 1
+    [Fact]        kubernetes — IllegalStateException: required property 'ORDERS_DB_POOL_SIZE' is not set
+
+  What changed:     Env var ORDERS_DB_POOL_SIZE removed
+  Likely cause:     ORDERS_DB_POOL_SIZE removed from KITT.
+  Confidence:       High — Startup error names the env var removed in this release
+
+  Classification:   Self-fix
+  Status:           complete
+
+  Actions taken (confirmed):
+    - none
+  Proposed manual actions (not performed):
+    1. Restore ORDERS_DB_POOL_SIZE in the KITT file (or give it a default in code).
+    2. Deploy through the normal pipeline.
+  Verify by:        Pods become Ready with no restarts.
+  Escalate if:      Pods still crash with a different, platform-related error.
+  Open questions:   none
+  Unknowns:         none
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0010
+  request_ref: example-app dev pods restarting
+  lifecycle_stage:
+    first_failing: run-operate
+    reported_at: run-operate
+  reported_tool: kubernetes
+  primary_tool: kubernetes
+  secondary_tools:
+  - github
+  - concord
+  failure_category: configuration
+  target:
+    app: example-app
+    environment: dev
+    cluster: <cluster-d>
+    namespace: example-app-dev
+    source: single KITT dev entry + Concord log
+    confirmed: true
+  blast_radius: single-app
+  classification: self-fix
+  status: complete
+  confidence:
+    level: high
+    reason: Startup error names the env var removed in this release
+  evidence:
+  - kind: fact
+    source: kubernetes
+    ref: example-app-dev
+    summary: CrashLoopBackOff, restarts 9, exit code 1
+  - kind: fact
+    source: kubernetes
+    ref: previous container log
+    summary: 'IllegalStateException: required property ''ORDERS_DB_POOL_SIZE'' is not set'
+  change_evidence:
+  - source: github
+    ref: KITT diff
+    summary: Env var ORDERS_DB_POOL_SIZE removed
+    change_type: deployment-config
+  actions_taken: []
+  proposed_manual_actions:
+  - Restore ORDERS_DB_POOL_SIZE in the KITT file (or give it a default in code).
+  - Deploy through the normal pipeline.
+  open_questions: []
+  unknowns: []
+  jira:
+    expected: false
+    created: false
+    key: null
+    draft_provided: false
+  slack:
+    expected: false
+    posted: false

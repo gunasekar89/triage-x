@@ -1,0 +1,82 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/ex04-needs-input-multi-target.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0004
+  Summary:          Three deployment targets are plausible for example-app, so no cluster checks were run until you pick one.
+  Lifecycle stage:  not determined   (reported at: Deploy)
+  Reported by:      Developer report (deploy)
+  Likely failing:   not yet determined
+  Category:         unknown
+  Target:           example-app · — · — · —   (source: KITT file lists three candidate targets)
+  Blast radius:     unknown
+
+  Evidence
+    [Fact]        github — KITT file lists 3 candidate targets: stage/<cluster-a>/example-app-stage, prod/<cluster-b>/example-app-prod, prod/<cluster-c>/example-app-prod
+    [Fact]        concord — No unambiguous Concord run reference found for the last hour
+
+  What changed:     no change evidence available
+  Likely cause:     not yet determined
+  Confidence:       Low — Target not confirmed; no deploy evidence collected yet
+
+  Classification:   not yet determined
+  Status:           needs-input
+
+  Actions taken (confirmed):
+    - none
+  Proposed manual actions (not performed):
+    - none
+  Verify by:        —
+  Escalate if:      —
+  Open questions:   Which deployment failed? 1) stage · <cluster-a> · example-app-stage  2) prod · <cluster-b> · example-app-prod  3) prod · <cluster-c> · example-app-prod (or share the Concord run reference)
+  Unknowns:         Failing stage; Failure cause; Blast radius
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0004
+  request_ref: Deployment failed for example-app (no run reference)
+  lifecycle_stage:
+    first_failing: null
+    reported_at: deploy
+  reported_tool: wcnp
+  primary_tool: wcnp
+  secondary_tools:
+  - github
+  failure_category: unknown
+  target:
+    app: example-app
+    environment: null
+    cluster: null
+    namespace: null
+    source: KITT file lists three candidate targets
+    confirmed: false
+  blast_radius: unknown
+  classification: null
+  status: needs-input
+  confidence:
+    level: low
+    reason: Target not confirmed; no deploy evidence collected yet
+  evidence:
+  - kind: fact
+    source: github
+    ref: KITT file
+    summary: 'KITT file lists 3 candidate targets: stage/<cluster-a>/example-app-stage, prod/<cluster-b>/example-app-prod, prod/<cluster-c>/example-app-prod'
+  - kind: fact
+    source: concord
+    ref: null
+    summary: No unambiguous Concord run reference found for the last hour
+  change_evidence: []
+  actions_taken: []
+  proposed_manual_actions: []
+  open_questions:
+  - Which deployment failed? 1) stage · <cluster-a> · example-app-stage  2) prod · <cluster-b> · example-app-prod  3) prod · <cluster-c> · example-app-prod (or share the Concord run reference)
+  unknowns:
+  - Failing stage
+  - Failure cause
+  - Blast radius
+  jira:
+    expected: false
+    created: false
+    key: null
+    draft_provided: false
+  slack:
+    expected: false
+    posted: false

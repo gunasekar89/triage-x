@@ -1,0 +1,84 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/jenkins-agent-offline.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0006
+  Summary:          Build #210 is queued because every agent for its label is offline.
+  Lifecycle stage:  CI build   (reported at: CI build)
+  Reported by:      Jenkins / queue
+  Likely failing:   Jenkins build agents for label linux-docker-large
+  Category:         platform-infra
+  Target:           example-app · dev · — · —   (source: jenkins-queue)
+  Blast radius:     unknown
+
+  Evidence
+    [Fact]        jenkins — Waiting for next available executor on 'linux-docker-large'
+    [Fact]        jenkins — 4 of 4 agents for label offline for 40 minutes
+
+  What changed:     no change evidence available
+  Likely cause:     Agent pool for the label is down.
+  Confidence:       Medium — All agents for the label are offline; impact on other teams not visible
+
+  Classification:   L1 issue
+  Status:           complete
+
+  Actions taken (confirmed):
+    - jira-search — succeeded — —
+  Proposed manual actions (not performed):
+    1. Do not change the agent label; wait for L1 to restore agents.
+  Verify by:        Build #210 starts executing.
+  Escalate if:      L1 finds other teams affected; then prod team with blast radius multi-app.
+  Open questions:   none
+  Unknowns:         Whether other teams using the label are affected.
+
+  Jira draft shown; awaiting developer confirmation (not created).
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0006
+  request_ref: 'example-app build #210 (queued)'
+  lifecycle_stage:
+    first_failing: ci-build
+    reported_at: ci-build
+  reported_tool: jenkins
+  primary_tool: jenkins
+  secondary_tools: []
+  failure_category: platform-infra
+  target:
+    app: example-app
+    environment: dev
+    cluster: null
+    namespace: null
+    source: jenkins-queue
+  blast_radius: unknown
+  classification: l1
+  status: complete
+  confidence:
+    level: medium
+    reason: All agents for the label are offline; impact on other teams not visible
+  evidence:
+  - kind: fact
+    source: jenkins
+    ref: 'example-app #210'
+    summary: Waiting for next available executor on 'linux-docker-large'
+  - kind: fact
+    source: jenkins
+    ref: label linux-docker-large
+    summary: 4 of 4 agents for label offline for 40 minutes
+  change_evidence: []
+  actions_taken:
+  - action: jira-search
+    status: succeeded
+    ref: null
+    detail: No related open issue
+  proposed_manual_actions:
+  - Do not change the agent label; wait for L1 to restore agents.
+  open_questions: []
+  unknowns:
+  - Whether other teams using the label are affected.
+  jira:
+    expected: true
+    created: false
+    key: null
+    draft_provided: true
+  slack:
+    expected: false
+    posted: false

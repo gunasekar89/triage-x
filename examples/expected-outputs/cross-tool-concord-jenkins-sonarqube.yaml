@@ -1,0 +1,87 @@
+# Synthetic expected output. Validated against schemas/triage-result.schema.json by tests/validate.py.
+input: examples/inputs/cross-tool-concord-jenkins-sonarqube.md
+human_readable: |
+  TRIAGE-X Result · TX-20261031-0012
+  Summary:          Concord's build task failed because Jenkins aborted on a SonarQube security gate that correctly blocked a new vulnerability.
+  Lifecycle stage:  Quality & security   (reported at: Orchestrate & deliver)
+  Reported by:      Concord / task ciBuild
+  Likely failing:   SonarQube security rating condition (policy)
+  Category:         policy-gate
+  Target:           example-app · — · — · —   (source: concord-log)
+  Blast radius:     single app
+
+  Evidence
+    [Fact]        concord — Task ciBuild FAILED: Jenkins job example-app build #305 finished with result FAILURE
+    [Fact]        jenkins — Pipeline aborted due to quality gate failure: ERROR
+    [Fact]        sonarqube — new_security_rating GT 1, actual 3: one new vulnerability (SQL built from string concatenation)
+
+  What changed:     no change evidence available
+  Likely cause:     New code builds SQL by string concatenation.
+  Confidence:       High — Walk from Concord to Jenkins to SonarQube ends in a direct gate condition
+
+  Classification:   Self-fix
+  Status:           complete
+
+  Actions taken (confirmed):
+    - none
+  Proposed manual actions (not performed):
+    1. Replace the string-concatenated SQL with a parameterized query.
+    2. Push and re-run the Concord flow.
+  Verify by:        SonarQube gate OK, Jenkins build green, Concord flow passes ciBuild.
+  Escalate if:      The gate still fails with no remaining new issues.
+  Open questions:   none
+  Unknowns:         Environment not shown before the failure.
+triage_result:
+  schema_version: '1.0'
+  triage_id: TX-20261031-0012
+  request_ref: 'Concord process <process-id> -> Jenkins #305 -> SonarQube'
+  lifecycle_stage:
+    first_failing: quality-security
+    reported_at: orchestrate-deliver
+  reported_tool: concord
+  primary_tool: sonarqube
+  secondary_tools:
+  - concord
+  - jenkins
+  failure_category: policy-gate
+  target:
+    app: example-app
+    environment: null
+    cluster: null
+    namespace: null
+    source: concord-log
+  blast_radius: single-app
+  classification: self-fix
+  status: complete
+  confidence:
+    level: high
+    reason: Walk from Concord to Jenkins to SonarQube ends in a direct gate condition
+  evidence:
+  - kind: fact
+    source: concord
+    ref: <process-id>
+    summary: 'Task ciBuild FAILED: Jenkins job example-app build #305 finished with result FAILURE'
+  - kind: fact
+    source: jenkins
+    ref: 'example-app #305'
+    summary: 'Pipeline aborted due to quality gate failure: ERROR'
+  - kind: fact
+    source: sonarqube
+    ref: project example-app
+    summary: 'new_security_rating GT 1, actual 3: one new vulnerability (SQL built from string concatenation)'
+  change_evidence: []
+  actions_taken: []
+  proposed_manual_actions:
+  - Replace the string-concatenated SQL with a parameterized query.
+  - Push and re-run the Concord flow.
+  open_questions: []
+  unknowns:
+  - Environment not shown before the failure.
+  jira:
+    expected: false
+    created: false
+    key: null
+    draft_provided: false
+  slack:
+    expected: false
+    posted: false

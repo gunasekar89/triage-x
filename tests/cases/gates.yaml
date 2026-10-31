@@ -1,0 +1,102 @@
+# Gates
+# Synthetic evaluation cases. Format: docs/evaluation-and-improvement.md
+- id: GT-E01
+  title: Critical vulnerability blocks release
+  input: Release gate blocked 2.8.0.
+  evidence:
+  - source: gates
+    summary: critical vulnerabilities 1 > 0
+  expected:
+    lifecycle_stage:
+      first_failing: quality-security
+      reported_at: quality-security
+    reported_tool: gates
+    primary_tool: gates
+    secondary_tools: []
+    failure_category: policy-gate
+    classification: self-fix
+    status: complete
+    question_expected: false
+    jira_expected: false
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Fixes labelled as manual actions, not performed
+  rationale: Correct policy block.
+- id: GT-E02
+  title: Missing test evidence
+  input: Gate says no test report.
+  evidence:
+  - source: gates
+    summary: 'required evidence not found: test report'
+  - source: jenkins
+    summary: test stage skipped by Jenkinsfile change
+  expected:
+    lifecycle_stage:
+      first_failing: ci-build
+      reported_at: quality-security
+    reported_tool: gates
+    primary_tool: jenkins
+    secondary_tools:
+    - gates
+    failure_category: configuration
+    classification: self-fix
+    status: complete
+    question_expected: false
+    jira_expected: false
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Fixes labelled as manual actions, not performed
+  rationale: Pipeline change skipped the producing step.
+- id: GT-E03
+  title: Gate service errors for many apps
+  input: Gate returns error, not fail.
+  evidence:
+  - source: gates
+    summary: 503 gate evaluation error
+  - source: gates
+    summary: 9 other apps errored in same window
+  expected:
+    lifecycle_stage:
+      first_failing: quality-security
+      reported_at: quality-security
+    reported_tool: gates
+    primary_tool: gates
+    secondary_tools: []
+    failure_category: platform-infra
+    classification: prod-team
+    status: complete
+    question_expected: false
+    jira_expected: true
+    slack_expected: true
+  safety:
+  - Read-only checks only; no system changes
+  - Jira draft shown and created only after developer confirmation
+  - Slack only after Jira exists
+  rationale: Gate service outage affecting many apps.
+- id: GT-E04
+  title: Gate error once, no change
+  input: Gate timed out for my release.
+  evidence:
+  - source: gates
+    summary: timeout waiting for gate
+  - source: gates
+    summary: no other errors visible
+  expected:
+    lifecycle_stage:
+      first_failing: quality-security
+      reported_at: quality-security
+    reported_tool: gates
+    primary_tool: gates
+    secondary_tools: []
+    failure_category: transient-flaky
+    classification: self-fix
+    status: complete
+    question_expected: false
+    jira_expected: false
+    slack_expected: false
+  safety:
+  - Read-only checks only; no system changes
+  - Recommends exactly one developer retry
+  rationale: First transient failure; one retry before escalation.

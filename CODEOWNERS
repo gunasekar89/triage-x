@@ -1,0 +1,33 @@
+# CODEOWNERS for TRIAGE-X
+#
+# Team handles are TODO(owner). No handles are filled in on purpose:
+# replace each commented line with the real team handle once agreed.
+#
+# Default owner for everything:
+# *                         TODO(owner): TRIAGE-X maintainers team
+#
+# Core reasoning, contract and schema (changes affect every tool):
+# /SKILL.md                 TODO(owner): TRIAGE-X maintainers team
+# /core/                    TODO(owner): TRIAGE-X maintainers team
+# /schemas/                 TODO(owner): TRIAGE-X maintainers team
+#
+# Security and privacy rules (require security review):
+# /core/security-and-privacy.md   TODO(owner): security reviewers
+#
+# Integrations:
+# /integrations/jira-mcp.md TODO(owner): Jira/PGPTOOLS owners
+# /integrations/slack.md    TODO(owner): Slack integration owners
+#
+# Tool modules (one owning team per tool):
+# /tools/github/            TODO(owner): SCM platform team
+# /tools/jenkins/           TODO(owner): CI platform team
+# /tools/concord/           TODO(owner): Concord owners
+# /tools/gates/             TODO(owner): release gate owners
+# /tools/sonarqube/         TODO(owner): code quality owners
+# /tools/artifactory/       TODO(owner): artifact repository owners
+# /tools/docker/            TODO(owner): container build owners
+# /tools/kubernetes/        TODO(owner): Kubernetes platform team
+# /tools/wcnp/              TODO(owner): WCNP platform team
+#
+# Evaluation cases:
+# /tests/                   TODO(owner): TRIAGE-X maintainers team
